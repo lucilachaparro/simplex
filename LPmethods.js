@@ -227,8 +227,8 @@ lpProblem.prototype.solve = function ()
 			}
 			pStr=pStr.substring(0,intPart-1);
 		}
-		var inArr = pStr.split(',');
-		var obj = inArr[0]; //var obj contiene la función objetivo, la toma de la prim posición del array
+		var inArr = pStr.split(','); //inArr contiene las líneas del problema, separa donde hay comas (eran saltos de línea)
+		var obj = inArr[0]; //var obj contiene la función objetivo, la toma de la primera posición del array
 		obj = obj.replace(/(imizar)|(imize)/,"").replace(/sujet/,"subject"); // uniforma el lenguaje
 		//analiza si la función es de max o min
 		if ( obj.indexOf("max") == 0 )
@@ -238,13 +238,13 @@ lpProblem.prototype.solve = function ()
 		else
 			throw lp_UnspecMaxMinErr; //error si no está especificado max ni min
 		
-		var coreObj = (obj.indexOf("subject") == -1) 
+		var coreObj = (obj.indexOf("subject") == -1) //qué significa que el index sea -1?
 					  ? obj.substring(4)
-					  : obj.substring(4, Math.max(5,obj.indexOf("subject")-1));
+					  : obj.substring(4, Math.max(5,obj.indexOf("subject")-1)); //según la condición hace una cosa o la otra
 		if (coreObj.indexOf("=") > -1) 
 		{
-			var objArr = coreObj.split("=");
-			p.objectiveName = objArr[0].replace(/ /g,"");
+			var objArr = coreObj.split("="); //separa el string de objetivo en un array, separa donde hay un =
+			p.objectiveName = objArr[0].replace(/ /g,""); //borra los espacios (/g es global match, encuentra todas las ocurrencias)
 			p.objective = objArr[1].replace(/ /g,"");
 		}
 		else 
@@ -255,15 +255,15 @@ lpProblem.prototype.solve = function ()
 			if ( inArr[i].indexOf("=") == -1 )
 				throw lp_noRelationConstrErr;
 			p.constraints.push(inArr[i].replace(/ /g,""));
-		}
+		} //toma las restricciones del inArr
 
 		return;
 	}
 
-	// extractUnknowns picks the names of the unknowns out of the objective function and the constraints
+	// extractUnknowns toma los nombres de las variables del objetivo y las restricciones
 	function extractUnknowns ( p )
 	{
-		if ( p.objective == "" ) throw lp_objNotSetErr;
+		if ( p.objective == "" ) throw lp_objNotSetErr; //error de objetivo vacío
 
 		var outA = ("+"+p.objective)
 						.replace(/ /g,"")
