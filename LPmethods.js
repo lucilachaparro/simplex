@@ -205,17 +205,17 @@ lpProblem.prototype.solve = function ()
 		throw lp_noLPErr;
 	}
 	
-	// splitProblem takes problemStr and splits it into an objective function and constraints
+	// splitProblem toma problemStr y lo divide en función objetivo y restricciones
 	function splitProblem ( p )
 	{
 		var pStr = ',' + p.problemStr.trim().toLowerCase().replace(/( |\t)+/g," ");
-		pStr = pStr.replace(/subject to|sujeta a|sujeto a/,"subject to,");
-		pStr = pStr.replace(/≤/g, "<=").replace(/≥/g,">=");
-		pStr = pStr.replace(/\r\n|\r|\n/g, ',');	// convert line breaks to commas
-		pStr = pStr.replace(/ *, */g, ',');			// remove spaces around commas
-		pStr = pStr.replace(/,+(?=,)/g, '');		// remove duplicate commas
-		pStr = pStr.replace(/(^,)|(,$)/g, ""); 		// remove leading and trailing commas
-		var intPart=pStr.search(/(integer)|(entero)|(entera)/gi); // deal with integer unknowns
+		pStr = pStr.replace(/subject to|sujeta a|sujeto a/,"subject to,"); //uniforma el lenguaje
+		pStr = pStr.replace(/≤/g, "<=").replace(/≥/g,">="); //uniforma el símbolo
+		pStr = pStr.replace(/\r\n|\r|\n/g, ',');	// convierte saltos de línea en comas
+		pStr = pStr.replace(/ *, */g, ',');			// remueve espacios alrededor de las comas
+		pStr = pStr.replace(/,+(?=,)/g, '');		// remueve comas duplicadas
+		pStr = pStr.replace(/(^,)|(,$)/g, ""); 		// remueve comas de inicio y fin
+		var intPart=pStr.search(/(integer)|(entero)|(entera)/gi); // trabaja con variables enteras
 		if(intPart>-1){
 			p.integerUnknowns = pStr.substring(intPart).replace(/(integer)|(entero)|(entera)/gi,"").replace(/\ /g,"").split(",");
 			if(p.integerUnknowns.length > 0) {
@@ -228,15 +228,15 @@ lpProblem.prototype.solve = function ()
 			pStr=pStr.substring(0,intPart-1);
 		}
 		var inArr = pStr.split(',');
-		var obj = inArr[0];
-		obj = obj.replace(/(imizar)|(imize)/,"").replace(/sujet/,"subject"); // regularize language
-
+		var obj = inArr[0]; //var obj contiene la función objetivo, la toma de la prim posición del array
+		obj = obj.replace(/(imizar)|(imize)/,"").replace(/sujet/,"subject"); // uniforma el lenguaje
+		//analiza si la función es de max o min
 		if ( obj.indexOf("max") == 0 )
 			p.maximize = true;
 		else if ( obj.indexOf("min") == 0)
 			p.maximize = false;
 		else
-			throw lp_UnspecMaxMinErr;
+			throw lp_UnspecMaxMinErr; //error si no está especificado max ni min
 		
 		var coreObj = (obj.indexOf("subject") == -1) 
 					  ? obj.substring(4)
