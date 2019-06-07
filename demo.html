@@ -148,9 +148,9 @@
 
 	<script>
 	function Resolv() {
-		var ob = document.getElementById("objetivo").value;
-		var f = document.getElementById("funcion").value;
-		var r = document.getElementById("restriccion").value;
+		var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
+		var f = document.getElementById("funcion").value; //variable f toma el valor del cuadro de texto funcion
+		var r = document.getElementById("restriccion").value; //variable r toma el valor del cuadro de texto restriccion
 
 		var ArrayFormateado;
 		const subject = " subject to ";
@@ -162,16 +162,16 @@
 			ob = "minimize ";
 		}
 
-	ArrayFormateado = `${ob}${f}${subject}${r}`;
+	ArrayFormateado = `${ob}${f}${subject}${r}`; //arrayformateado guarda los datos del problema, separados
 	console.log({ArrayFormateado});
 	clearOutput();
 					adjustAccuracy();setMode();setShowTabl();
-					var Q = new lpProblem( ArrayFormateado);
+					var Q = new lpProblem( ArrayFormateado); //crea un objeto lpProblem a partir de arrayformateado
 					lp_verboseLevel=lp_demo_verboseLevel;
 					Q.mode=lp_demo_mode;
 					Q.sigDigits=lp_demo_accuracy;
-					try{Q.solve()}
-					finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() );}
+					try{Q.solve()} //acá llama a solve para el problema
+					finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() );} //muestra la solución como string, también los pasos intermedios
 	}
 	</script>
 </body>

@@ -1,58 +1,58 @@
 // LPdefs.js
 //
-// definition of lpProblem object
-// for solution of LP problems by simplex method
+// definición del objeto lpProblem
+// para resolución de problemas de PL usando método simplex
 //
 // Copyright (C) 2017 Steven R. Costenoble and Stefan Waner
 
-// lp modes
-const lp_Integral = 1;					// solve using integers?
-const lp_Fraction = lp_Integral+1;		// using fractions?
-const lp_Decimal = lp_Fraction+1;		// using decimals?
+// modos de PL
+const lp_Integral = 1;					// resolver usando enteros?
+const lp_Fraction = lp_Integral+1;		// usando fracciones?
+const lp_Decimal = lp_Fraction+1;		// usando decimales?
 
-// lp status
-const lp_no_problem = 0;				// no problem, yet
-const lp_parsed = lp_no_problem+1;		// parsed a problem
-const lp_phase1 = lp_parsed+1;			// done with Phase I
-const lp_phase2 = lp_phase1+1;			// done with Phase II
-const lp_optimal = lp_phase2+1;			// completely done - not necessarily Phase II for integer programming
-const lp_no_solution = lp_optimal+1;	// no solution, don't continue
+// estado de PL
+const lp_no_problem = 0;				// no hay problema (aún)
+const lp_parsed = lp_no_problem+1;		// problema parseado o leído
+const lp_phase1 = lp_parsed+1;			// se terminó la fase I
+const lp_phase2 = lp_phase1+1;			// se terminó la fase II
+const lp_optimal = lp_phase2+1;			// completamente terminado. no necesariamente la fase 2 para programación entera
+const lp_no_solution = lp_optimal+1;	// no hay solución, no continuar
 
-// verbosity level
-const lp_verbosity_none = 0;			// how verbose should we be?
-const lp_verbosity_tableaus = lp_verbosity_none + 1;		// show all tableaus
-const lp_verbosity_solutions = lp_verbosity_tableaus + 1;	// tableaus and intermediate solutions
+// nivel de verbosidad
+const lp_verbosity_none = 0;			// cuánta verbosidad hay que usar? (cuànto "texto" a mostrar)
+const lp_verbosity_tableaus = lp_verbosity_none + 1;		// mostrar todas las tablas
+const lp_verbosity_solutions = lp_verbosity_tableaus + 1;	// mostrar todas las tablas y soluciones intermedias
 
-// globals
+// globales
 var lp_verboseLevel = lp_verbosity_none;
-var lp_reportErrorsTo = "";  			// empty if default reporting, "alert" or id of	an html element
-var lp_trace_string = "";				// string that will contain the tableaus, solutions, etc.
+var lp_reportErrorsTo = "";  			// vacío para reporte estándar, "alerta" o id de un elemento html
+var lp_trace_string = "";				// string que contiene las tablas, soluciones, etc.
 
-// error messages (should be reassignable by a parent container - eg in Spanish - so these are not consts)
-var lp_noLPErr = "No LP problem given";
-var lp_IllegCharsErr = "Illegal characters";
-var lp_UnspecMaxMinErr = "Max or min not specified";
-var lp_noRelationConstrErr = "Constraints must contain '=', '<=', or '>='";
-var lo_tooManyTabloeausErr = "Number of tableaus exceeds ";
-var lp_emptyFeasibleRegionErr = "No solution; feasible region empty";
-var lp_noMaxErr = "No maximum value; the objective function can be arbitrarily large";
-var lp_noMinErr = "No minimum value; the objective function can be arbitrarily large negative";
-var lp_phase2TooSoonErr = "Attempting to do Phase 2 when Phase 1 is not complete.";
-var lp_badExprErr = "Something's wrong in the expression ";
-var lp_illegalCoeffErr = "illegal coefficient of ";
-var lp_inExprErr = " in the expression\n";
-var lp_objNotSetErr = "Objective not set in extractUnknowns";
-var lp_noNiceSolutionErr = "No solution with the desired integer values exists"
+// mensajes de error (deberían ser reasignables por un contenedor de orden superior, pero de momento son constantes)
+var lp_noLPErr = "No se ingresó problema de PL";
+var lp_IllegCharsErr = "Caracteres ilegales";
+var lp_UnspecMaxMinErr = "No se especificó max o min";
+var lp_noRelationConstrErr = "Restricciones deben contener '=', '<=', or '>='";
+var lo_tooManyTabloeausErr = "Número de tablas excede ";
+var lp_emptyFeasibleRegionErr = "No hay solución, región factible vacía";
+var lp_noMaxErr = "No hay valor máximo, la función puede ser arbitrariamente grande (no está acotada)";
+var lp_noMinErr = "No hay valor mínimo, la función puede ser arbitrariamente grande en negativo"; //este no lo entiendo, cómo es cuando no se halla mínimo?
+var lp_phase2TooSoonErr = "Intentando hacer fase II cuando la fase I no está completa";
+var lp_badExprErr = "Algo es incorrecto en la expresión ";
+var lp_illegalCoeffErr = "Coeficiente ilegal de ";
+var lp_inExprErr = " en la expresión\n";
+var lp_objNotSetErr = "Objetivo no definido en extractUnknowns";
+var lp_noNiceSolutionErr = "No existe solución con los enteros deseados"
 
 
 
-// Setting up an lpProblem
-// Do one of the following:
-//   1) Supply an existing lpProblem when constructing the object
-//   2) Set problemStr to a whole LP problem
-//		For integer/mixed problems, add "integer x,y,z" as last line with unknowns that should be integer
-//   3) Set objective to the object function, as a string of the form
-//         "[max|min]inmize var = linear expression" and
+// Estableciendo el lpProblem
+// Hacer uno de los siguientes:
+//   1) Proveer un lpProblem existente cuando se construye el objeto
+//   2) Poner en problemStr un problema de PL completo
+//		Para problemas de entera/mixta, agregar "integer x,y,x" como la última línea, con variables que deben ser enteras
+//   3) Definir el objetivo con la función objetivo, como un string de la forma:
+//         "[max|min]izar var = expresión lineal" and
 //      Set constraints to an array of constraints of the form
 //         "linear expr <=, >=, or = number"
 //   4) Set maximize, objectiveName, unknowns, and numActualUnknowns, and

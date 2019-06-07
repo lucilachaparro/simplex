@@ -35,25 +35,25 @@ window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
 }
 
 
-// Do everything necessary to solve the problem, if it can be solved
-// May throw an error
+// Hace todo lo necesario para resolver el problema, si puede ser resuelto
+// Puede tirar error
 //
 lpProblem.prototype.solve = function ()
 {
-	// Locals for integer/mixed problems
-	// All the internal functions can access these
+	// Variables locales para problemas enteros/mixtos
+	// Todas las funciones internas pueden accederlas
 	//
-	var lp_BNB_foundSolution;				// Have we found at least one solution?
-	var lp_BNB_bestObjectiveVal;			// Best value so far
+	var lp_BNB_foundSolution;				// Se encontró al menos alguna solución?
+	var lp_BNB_bestObjectiveVal;			// Mejor valor hasta ahora
 	var lp_BNB_bestSolution;				// Corresponding values of unknowns
 	var lp_tableauCount=0;					// keeping track of total number in branch and bound
 
-	lp_BNB_foundSolution = false;			// Need to set this before recursively solving
-											// using branch and bound
+	lp_BNB_foundSolution = false;			// Necesario definir esto antes de resolver recursivamente
+											// usando ramificación y acotamiento
 											
 	lp_trace_string = "";
 
-	doSolve(this);							// Now do the real work
+	doSolve(this);							// hacer el trabajo real
 	
 	if ( this.isIntegral ) {
 		this.integerSolution = lp_BNB_bestSolution;
@@ -70,7 +70,7 @@ lpProblem.prototype.solve = function ()
 	// This is the function that does the real work, but needs to be separate from solve() so it can
 	// be called recursively for integer programming. Solve() needs to set up some global variables first.
 	function doSolve ( p ) {
-		// first make sure problem is set up properly
+		// asegurarse de que el problema está bien escrito
 		try
 		{
 			parseProblem( p );
