@@ -46,29 +46,29 @@ var lp_noNiceSolutionErr = "No existe solución con los enteros deseados"
 
 
 
-// Estableciendo el lpProblem
+// Definiendo el lpProblem
 // Hacer uno de los siguientes:
 //   1) Proveer un lpProblem existente cuando se construye el objeto
 //   2) Poner en problemStr un problema de PL completo
 //		Para problemas de entera/mixta, agregar "integer x,y,x" como la última línea, con variables que deben ser enteras
-//   3) Definir el objetivo con la función objetivo, como un string de la forma:
-//         "[max|min]izar var = expresión lineal" and
-//      Set constraints to an array of constraints of the form
-//         "linear expr <=, >=, or = number"
-//   4) Set maximize, objectiveName, unknowns, and numActualUnknowns, and
-//      set tableaus to a one element array containing the first tableau
+//   3) Definir el objetivo con la función objetivo, con un string de la forma:
+//         "[max|min]izar var = expresión lineal" y
+//      Definir restricciones con un array de restricciones de la forma
+//         "expresión linear <=, >=, o = número"
+//   4) Definir maximize, objectiveName, unkowns, y numActualUnknowns, y
+//      definir tableaus como un array de un elemento conteniendo la primer tabla
 //
-// Once the problem is set up, call solve().
+// Una vez que el problema está definido, llamar a solve().
 //
-// Success is indicated by this.status, which could be lp_optimal or lp_no_solution.
+// El éxito lo indica this.status, que puede ser lp_optimal o lp_no_solution.
 //
-// For ordinary LP problems, solutions, including all intermediate steps, are available
-// 		in this.objectiveValues and this.solutions, with tableaus in this.tableaus
-//		Use the appropriate formatXXX() routine to get them nicely rounded and formatted.
+// Para problemas ordinarios de PL, las soluciones, icluyendo todos los pasos intermedios, se encuentran en
+// 		this.objectiveValues y this.solutions, con tablas en this.tableaus
+//		Usar la rutina formatXXX() apropiada para dejarlos bien formateados.
 //
-// For integer LP problems, the actual solution is available in
-// 		this.integerSolution and this.integerObjValue.
-//		Use formatIntegerXXX() to get them nicely formatted.
+// Para problemas de programación entera, la solución está en
+// 		this.integerSolution y this.integerObjValue.
+//		Usar formatIntegerXXX() para dejarlo bien formateado.
 
 
 class lpProblem
