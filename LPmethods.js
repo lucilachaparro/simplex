@@ -44,8 +44,8 @@ lpProblem.prototype.solve = function ()
 	// Todas las funciones internas pueden accederlas
 	//
 	var lp_BNB_foundSolution;				// Se encontró al menos alguna solución?
-	var lp_BNB_bestObjectiveVal;			// Mejor valor hasta ahora
-	var lp_BNB_bestSolution;				// Corresponding values of unknowns
+	var lp_BNB_bestObjectiveVal;			// Mejor valor objetivo hasta ahora
+	var lp_BNB_bestSolution;				// Valores correspondientes de variables
 	var lp_tableauCount=0;					// keeping track of total number in branch and bound
 
 	lp_BNB_foundSolution = false;			// Necesario definir esto antes de resolver recursivamente
