@@ -78,7 +78,7 @@ class lpProblem
 		this.objective = (problem != null && typeof problem.objective == 'string') 
 							? problem.objective : "";			
 
-			// array de restricciones, expresión lineal <=, >=, o = número
+			// arreglo de restricciones, expresión lineal <=, >=, o = número
 		this.constraints = (problem != null && Array.isArray(problem.constraints)) 
 							? problem.constraints.slice() : [];
 
@@ -86,67 +86,67 @@ class lpProblem
 		this.isIntegral = (problem != null && typeof problem.isIntegral == 'boolean') 
 							? problem.isIntegral : false;
 
-			// solve using integers, fractions, or decimals?
+			// resolver enteros, fracciones, o decimales?
 		this.mode = (problem != null && typeof problem.mode == 'number')
 							? problem.mode : lp_Decimal;
 
-			// false for minimize
+			// falso para minimizar
 		this.maximize = (problem != null && typeof problem.maximize == 'boolean') 
 							? problem.maximize : true;
 
-			// either supplied with string problem or generated
+			// provisto con el string del problema o generado
 		this.objectiveName = (problem != null && typeof problem.objectiveName == 'string') 
 							? problem.objectiveName : "Obj";
 
-			// array of names of unknowns (includes slack/surplus variables)
+			// arreglo de nombres de variables/incógnitas (incluyendo variables de slack/superávit)
 		this.unknowns = (problem != null && Array.isArray(problem.unknowns)) 
 							? problem.unknowns.slice() : [];
 
-			// array of unknowns for which integer values are required (mixed programming)
+			// arreglo de variables/incógnitas para las que se necesitan valores enteros (programación mixta)
 		this.integerUnknowns = (problem != null && Array.isArray(problem.integerUnknowns)) 
 							? problem.integerUnknowns.slice() : [];
-			// whether or not to show the values of the slack and surplus variables in the solution
+			// mostrar o no los valores de las variables de slack/superávit en la solución
 		this.showArtificialVariables = false;
-			// initial matrix of system, a la Ax >= b.
-			// doesn't need to be copied, as it won't change if already filled in
+			// matriz inicial del sistema, estilo Ax >= b.
+			// no necesita ser copiada, no cambia si ya está rellenada
 		this.systemMatrix = (problem != null && Array.isArray(problem.systemMatrix))
 							? problem.systemMatrix : [];
 
 		this.systemRowIsStarred = (problem != null && Array.isArray(problem.systemRowIsStarred))
 							? problem.systemRowIsStarred : [];
 
-			// same for right hand sides of constraints
+			// de igual forma para los lado derecho de las restricciones
 		this.constraintRHS = (problem != null && Array.isArray(problem.constraintRHS))
 							? problem.constraintRHS : [];
 
-			// similar for objective function
+			// similarmente para la función objetivo
 		this.objectiveCoeffs = (problem != null && Array.isArray(problem.objectiveCoeffs))
 							? problem.objectiveCoeffs : [];
 
-			// additional constraints used in integer programming, indexed like integerUnknowns
+			// restricciones adicionales usadas en programación entera, indexadas como integerUnknowns
 		this.integerMins = (problem != null && Array.isArray(problem.integerMins))
 							? problem.integerMins.slice() : [];
 		this.integerMaxs = (problem != null && Array.isArray(problem.integerMaxs))
 							? problem.integerMaxs.slice() : [];
 
-			// how many original unknowns?
+			// cuántas incógnitas reales?
 		this.numActualUnknowns = (problem != null && typeof problem.numActualUnknowns == 'number') 
 							? problem.numActualUnknowns : 0;
 
-		this.rowIsStarred = [];			// ith entry is true if i row is starred
+		this.rowIsStarred = [];			// elemento en posición i es verdadero si la fila está "starred" (destacado?)
 
-		this.tableaus = [];				// array of tableaus
-		this.tableauDimensions = [];	// number of rows, number of columns
-		this.maxNumTableaus=50;			// quite arbitrary make it a setting if associated error is thrown
+		this.tableaus = [];				// arreglo de tablas
+		this.tableauDimensions = [];	// número de filas, número de columnas
+		this.maxNumTableaus=50;			// arbitrario
 
-		this.status = lp_no_problem;	// are we there yet?
+		this.status = lp_no_problem;	// ya se llegó a la solución?
 
-		this.solutions = [];			// array of intermediate solutions
-		this.objectiveValues = [];		// array of intermediate objective values
-		this.error = "";				// error message for badly set up problem etc
-		this.message = "";				// message when there is no solution for one reason or another
+		this.solutions = [];			// arreglo de soluciones intermedias
+		this.objectiveValues = [];		// arreglo de valores objetivo intermedios
+		this.error = "";				// mensaje de error para problema definido erróneamente, etc
+		this.message = "";				// mensaje cuando no hay solución por la razón que sea
 		
-		this.integerSolution = [];		// used to return solution to integer programming problems
+		this.integerSolution = [];		// usada para devolver la solución de un problema de PL entera
 		this.integerObjValue = 0;
 		
 		this.problemStr = (problem != null && typeof problem == 'string') ? problem : "";
