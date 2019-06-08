@@ -74,15 +74,15 @@ var lp_noNiceSolutionErr = "No existe solución con los enteros deseados"
 class lpProblem
 {
 	constructor ( problem = null ) {
-			// linear expression to optimize
+			//expresión lineal a optimizar
 		this.objective = (problem != null && typeof problem.objective == 'string') 
 							? problem.objective : "";			
 
-			// array of constraints, linear expr <=, >=, or = number
+			// array de restricciones, expresión lineal <=, >=, o = número
 		this.constraints = (problem != null && Array.isArray(problem.constraints)) 
 							? problem.constraints.slice() : [];
 
-			// integer/mixed programming?
+			// programación entera/mixta?
 		this.isIntegral = (problem != null && typeof problem.isIntegral == 'boolean') 
 							? problem.isIntegral : false;
 

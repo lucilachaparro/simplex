@@ -46,7 +46,7 @@ lpProblem.prototype.solve = function ()
 	var lp_BNB_foundSolution;				// Se encontró al menos alguna solución?
 	var lp_BNB_bestObjectiveVal;			// Mejor valor objetivo hasta ahora
 	var lp_BNB_bestSolution;				// Valores correspondientes de variables
-	var lp_tableauCount=0;					// keeping track of total number in branch and bound
+	var lp_tableauCount=0;					// lleva cuenta de número total de tablas en ramificación y acotamiento
 
 	lp_BNB_foundSolution = false;			// Necesario definir esto antes de resolver recursivamente
 											// usando ramificación y acotamiento
@@ -62,13 +62,13 @@ lpProblem.prototype.solve = function ()
 
 	return true;
 
-	// End of code for solve() proper
+	// Fin de la función solve() propiamente dicha.
 
-	// utility functions local to solve()
+	// Funciones locales a solve()
 	
 
-	// This is the function that does the real work, but needs to be separate from solve() so it can
-	// be called recursively for integer programming. Solve() needs to set up some global variables first.
+	// Esta es la función que hace el verdadero trabajo, pero necesita estar separada de solve()
+	// para ser llamada recursivamente para programación entera. Solve() necesita definir variables globales primero.
 	function doSolve ( p ) {
 		// asegurarse de que el problema está bien escrito
 		try
