@@ -285,12 +285,11 @@ lpProblem.prototype.solve = function ()
 		outA.shift();
 		outA.sort();
 		p.unknowns = outA;
-		p.numActualUnknowns = p.unknowns.length;	// save this number, slack variables will be added to list
-		
+		p.numActualUnknowns = p.unknowns.length;	// guarda este número (variables reales o de decisión), variables de slack se agregan a la lista
 		return;
 	}
 
-	// extract coefficients, create systemMatrix, etc.,
+	// extraer coeficientes, crear systemMatrix, etc.,
 	// assumes extractUnknowns called recently, p.unknowns has only the real variables
 	function extractCoefficients ( p ) {
 		p.systemMatrix = [];		// start out clean

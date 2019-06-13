@@ -169,42 +169,41 @@ class lpProblem
 											// retorna arreglo de incógnitas, con o sin las variables de slack	
 	formatUnknowns ( includeSlackVariables = false ) {}
 
-											// use this to get the solutions, in proper form,
-											// with or w/o slack vars
-											// mode defaults to setting of this.mode
-											// returns an array of arrays, each in order of unknowns
+											// usar para obtener las soluciones, en forma correcta,
+											// con o sin variables de slack
+											// modo por default dado por this.mode
+											// retorna un arreglo de arreglos, cada uno en orden de incógnitas
 	formatSolutions ( includeSlackVariables = false, mode = 0 ) {}
 	
-											// same, but just last solution, not all intermediates
+											// lo mismo, pero solo la última solución, no los pasos intermedios
 	formatLastSolution ( includeSlackVariables = false, mode = 0 ) {}
 
-											// use these to get the integer solution when doing ILP
+											// usar para obtener soluciones enteras en caso de PLE
 	formatIntegerObjectiveValue ( mode = 0) {}
 	formatIntegerSolution ( includeSlackVariables = false ) {}
 
-											// return string showing values of vars in last or integer solution,
-											// using settings of showArtificialVariables & mode
+											// retorna string con los valores de las variables en la última solución o solución entera,
+											// usando especificaciones de showArtificialVariables y mode
 	solutionToString () {}
-											// same, but shows last solution, even if doing ILP
-	lastSolutionToString () {}
+											// lo mismo, pero muestra la última solución, incluso en caso de PLE
 }
 
 
-// tableau class is a subclass of Array
-// The 0th row and column contain labels
-// The entries of the tableau itself are indexed from [1][1]
+// la clase tableau (tabla) es una subclase de Array
+// Las columnas y filas '0' contienen los encabezados
+// Los valores de la tabla en si están indexados desde [1][1]
 //
 class tableau extends Array
 {
-	constructor ( arr = [] ) {			// construct from a given 2D array or tableau
+	constructor ( arr = [] ) {			// construye a partir de un arreglo o tabla 2D dado
 		super();
 		for ( var i = 0; i < arr.length; i++ )
 			this[i] = arr[i].slice();
 	}
 
-	pivot ( pRow, pCol, sigDigs ) {}	// pivot, return a new tableau
+	pivot ( pRow, pCol, sigDigs ) {}	// pivot, retorna una nueva tabla (cálculos algebraicos)
 	
-	toString ( theMode, sigDigs ) {}	// returns an ascii formatted string representing the tableau
+	toString ( theMode, sigDigs ) {}	// retorna un string formateado en ascii representando la tabla
 	
-	toHTML ( theMode, sigDigs , params) {}		// returns an HTML table representing the tableau
+	toHTML ( theMode, sigDigs , params) {}		// retorna una tabla HTML representando la tabla
 }
