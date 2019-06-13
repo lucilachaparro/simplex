@@ -153,20 +153,20 @@ class lpProblem
 		
 		// settings
 		this.maxSigDigits = 13;			// try to push to 16 but issues with roundSigDig which internally uses three more
-		this.sigDigits = 6;				// user specified for rounding of tableaus and results
+		this.sigDigits = 6;				// dígitos significativos, especificados por el usuario para redondeo en tablas y resultados
 		
 	}
 	
 
-	// Functions
+	// Funciones
 	
-	solve ( ) {}								// solve it, return true if succeeded
+	solve ( ) {}								// resolver, retorna true si lo hace con éxito
 
-	formatObjectiveValues ( mode = 0 ) {}			// return array of objective values, in proper form
+	formatObjectiveValues ( mode = 0 ) {}			// retorna arreglo de valores objetivo, en forma correcta
 
-	formatLastObjectiveValue ( mode = 0 ) {}		// same, just the last value										
+	formatLastObjectiveValue ( mode = 0 ) {}		// lo mismo, solo el último valor										
 
-											// return array of unknowns, with or w/o slack vars	
+											// retorna arreglo de incógnitas, con o sin las variables de slack	
 	formatUnknowns ( includeSlackVariables = false ) {}
 
 											// use this to get the solutions, in proper form,
