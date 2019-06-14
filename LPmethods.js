@@ -289,13 +289,13 @@ lpProblem.prototype.solve = function ()
 		return;
 	}
 
-	// extraer coeficientes, crear systemMatrix, etc.,
-	// assumes extractUnknowns called recently, p.unknowns has only the real variables
+	// extrae coeficientes, crea systemMatrix, etc.,
+	// asume que extractUnknowns fue llamado recientemente y que p.unknowns contiene solo las variables reales
 	function extractCoefficients ( p ) {
-		p.systemMatrix = [];		// start out clean
-		p.constraintRHS = [];
+		p.systemMatrix = [];		// empieza vacía la matriz del sistema de ecuaciones
+		p.constraintRHS = [];		// empieza vacía la matriz de los lados derechos
 
-		// first need to deal with equality constraints
+		// primero se arreglan las restricciones de igualdad
 		var nC=p.constraints.length;
 		
 		for ( var i = 0; i < nC; i++) {
@@ -318,15 +318,14 @@ lpProblem.prototype.solve = function ()
 		return;
 	}
 
-	// createFirstTableau creates the first tableau, once everything else is set up
+	// createFirstTableau crea la primer tabla, una vez que todo lo demás está definido
 	function createFirstTableau ( p )
 	{
-		// remove slack variables from list of unknowns if they're there
-		// (will happen if recursing for ILP)
+		// quitar las variables de slack de la lista de incógnitas si están allí
+		// (ocurre en caos de recursión para PLE)
 		p.unknowns = p.unknowns.slice(0, p.numActualUnknowns);
 
-		var numExtraConstraints = 0;		// used in ILP
-		if ( p.isIntegral )
+		var numExtraConstraints = 0;		// usado en PLE
 			for ( var i = 0; i < p.integerUnknowns.length; i++ ) {
 				if ( p.integerMins[i] > -Infinity )	numExtraConstraints++;
 				if ( p.integerMaxs[i] < Infinity )  numExtraConstraints++;
@@ -337,7 +336,7 @@ lpProblem.prototype.solve = function ()
 		p.tableauDimensions = [numRows, numCols];
 		var firstTableau = new tableau();
 		
-		// Put variable names in top row
+		// poner nombres de variables en la primera fila
 		firstTableau[0] = [];
 		for (var j = 1; j <= p.unknowns.length; j++) {
 			firstTableau[0][j] = p.unknowns[j-1];
