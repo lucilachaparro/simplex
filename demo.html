@@ -4,6 +4,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Método Simplex</title>
 	<script src = "LPdefs.js"></script>
 	<script src = "LPmethods.js"></script>
@@ -72,33 +73,33 @@
 	</script>
 </head>
 
-<body>
+<body class="bg-light">
 
-	<div id = "container" style="width:100%;border:thin black solid;background-color:#dddddd;font-size:12px">
-		<div id="info1" style="width:100%;text-align:center;margin:5px 0 5px 0">
-			Escriba su problema de programacion lineal. (Presione "Ejemplos" para pasar por algunos problemas ya configurados). Luego presione "Resolver".
+		<div id="info1" class="py-5 text-center">
+			<h2>Método simplex</h2>
+			<p class="lead"> Escriba su problema de programacion lineal. (Presione "Ejemplos" para pasar por algunos problemas ya configurados). Luego presione "Resolver".
+			</p>
 		</div>
 		<center>
 			<div id="input">
 				<form id="formulario">
-					<p>
+					<div class="col-md-3 mb-3">
 						¿Qué desea hacer?
-						<select id="objetivo">
+						<select class="custom-select d-block w-100" id="objetivo">
 						<option	value ="Maximizar">Maximizar</option>
 						<option value="Minimizar">Minimizar</option>
 						</select>
-					</p>
-					<p>
-						Función:
-						<input id="funcion" type="text" size="20">
-					</p>
-					<p>
-						Restricción:
-						<textarea id="restriccion"  rows="5" cols="33"></textarea>
-					</p>
-										
-					
+					</div>
+					<div class="col-md-3 mb-3">
+						<label for="funcion">Función: </label>
+						<input class="form-control" id="funcion" type="text" size="20">
+					</div>
+					<div class="col-md-3 mb-3">
+						<label for="restriccion">Restricciones: </label>
+						<textarea class="form-control" id="restriccion"  rows="5" cols="33"></textarea>
+					</div>					
 				</form>
+			</div>
 			
 
 			</div>
@@ -109,34 +110,44 @@
 				Una solución óptima (o mensaje) aparecerá aquí.
 			</div>
 			<div id="buttonsdiv" style="width:100%;text-align:center;margin:5px 0 5px 0">
-				<input type="button" value="Resolver" 
-				onClick="Resolv(); 
-				
-				">
+					<button class="btn btn-primary" onClick="Resolv();">Resolver</button>
 					&#160; &#160;
-				<input type="button" value="Ejemplos" onClick="showExamples();">
-					&#160; &#160;
-				<input type="button" value="Borar todo" onClick="clearAll();">
+					<button class="btn btn-secondary" onClick="clearAll();">Borrar todo</button>
 				
 				<br>&#160;<br>
 				
 				<div style="display: inline-block; vertical-align:middle; text-align:left">
-					<input type="radio" name="displaytabl" id="noTabl"> Ocultar las tablas.
-					<br>
-					<input type="radio" checked="true" name="displaytabl" id="yesTabl"> Mostrar las tablas (pasos).
-					<br>
-					<input type="radio" name="displaytabl" id="andSolns"> Mostrar tablas y soluciones intermedias.
+					<div class="custom-control custom-radio">
+					<input type="radio" name="displaytabl" id="noTabl" class="custom-control-input"> 
+					<label class="custom-control-label" for="noTabl">Ocultar las tablas. </label>
+					</div>
+					<div class="custom-control custom-radio">
+					<input class="custom-control-input" type="radio" checked="true" name="displaytabl" id="yesTabl"> 
+					<label class="custom-control-label" for="yesTabl">Mostrar las tablas (pasos).</label>
+					</div>
+					<div class="custom-control custom-radio">
+					<input class="custom-control-input" type="radio" name="displaytabl" id="andSolns"> 
+					<label class="custom-control-label" for="andSolns">Mostrar tablas y soluciones intermedias.</label>
+					</div>
 				</div>
 				&#160; &#160; 
 				Modo Tabla: <div style="display: inline-block; vertical-align:middle; text-align:left">
-					<input type="radio" checked="true" name="modepicker" id="3" value="decimal"> decimal
-					<br>
-					<input type="radio" name="modepicker" id="2" value="fraction"> fracción
-					<br>
-					<input type="radio" name="modepicker" id="1" value="integer"> entero
+					<div class="custom-control custom-radio">
+					<input type="radio" checked="true" name="modepicker" id="3" value="decimal" class="custom-control-input">
+					<label class="custom-control-label" for="3">decimal </label>
+					</div>
+					<div class="custom-control custom-radio">
+					<input class="custom-control-input" type="radio" name="modepicker" id="2" value="fraction" class="custom-control-input">
+					<label class="custom-control-label" for="2">fracción</label>
+					</div>
+					<div class="custom-control custom-radio">
+					<input class="custom-control-input" type="radio" name="modepicker" id="1" value="integer" class="custom-control-input">
+					<label class="custom-control-label" for="1">entero</label>
+					</div>
 				</div>
 					&#160; &#160;
-				Redondeo: <input type="text" id="accuracyDig" size="1" value="6"> dígito significativos
+
+				 Redondeo: <input type="text" id="accuracyDig" size="1" value="6"> dígitos significativos
 					&#160; &#160;
 			</div>
 			<div id="outputarea" style="width: 95%; overflow-x: scroll; background-color:white; font-family:monospace; border: thin solid; padding: 10px; text-align:left">
@@ -144,7 +155,6 @@
 			</div>
 			<div id="spacer" style="height:20px"></div>
 		</center>
-	</div>
 
 	<script>
 	function Resolv() {
