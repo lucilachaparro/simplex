@@ -14,12 +14,12 @@
 //x+y >= 10
 // stopped rounding each tablaeu unless testing for zeros
 //
-// Fix 02: In doPhase2(), rounding to find the min bottom entry was causing subsequent problem
-// finding where that min occurred
-// Fix 03: in mixed problems, the solution should not round everything in sight
-// Fix 04: status of lp_no_solution being wrongly changed to lp_optimal resulting in various problems reporting a solution when there is one.
-// Fix 05 no more error on empty feasible region; affects branch and bound as well.
-// Fix 06 What if branch and bound finds no integer solutions at all...
+// Solución 02: En doPhase2 (), el redondeo para encontrar la entrada del fondo mínimo estaba causando un problema posterior
+// encontrando donde ocurrió ese min
+// Solución 03: en problemas mixtos, la solución no debe redondear todo a la vista
+// Solución 04: el estado de lp_no_solution se cambió erróneamente a lp_optimal, lo que provocó varios problemas al informar una solución cuando existe una.
+// Solución 05: no más errores en la región factible vacía; Afecta a la rama y al límite también.
+// Solución 06: ¿Qué pasa si la rama y el límite no encuentran ninguna solución de enteros ...
 
 
 
@@ -112,12 +112,12 @@ lpProblem.prototype.solve = function ()
 		}
 	
 		else {
-			// integral/mixed problem
-			// Fix 05 do not bother if there was no solution
+			// problema integral / mixto
+			// Solucion 05 no te molestes si no hubo solución
 			if(p.status>=lp_no_solution) return false; // Fix 05
 			var indx = p.solnIsOfRightType();
 			if (indx == -1) { 
-				p.status=Math.max(p.status, lp_optimal); // Fix 04 was just lp_optimal
+				p.status=Math.max(p.status, lp_optimal); // Solucion 04 fue solo lp_optimal
 				if ( lp_BNB_foundSolution ) {
 					if ( (p.maximize && p.objectiveValues[p.objectiveValues.length-1] > lp_BNB_bestObjectiveVal)
 						  ||
@@ -158,17 +158,17 @@ lpProblem.prototype.solve = function ()
 		return true;
 	}
 
-	// parseProblem checks what info we were given and sets everything up
-	// will throw an error if something goes wrong
+	// parseProblem comprueba qué información nos dieron y configura todo
+	// arrojará un error si algo sale mal
 	function parseProblem ( p )
 	{
 		if ( (p.tableaus.length > 0) && (p.unknowns.length > 0) ) {
-			p.status = lp_parsed; 	// OK, we have a tableau and unknowns and also integerUnknowns if any
+			p.status = lp_parsed; 	// OK, tenemos un cuadro y desconocidos y también integerUnknowns si los hay
 			return;
 		}
 		
 		if ( p.systemMatrix.length > 0 && p.constraintRHS.length > 0 ) {
-			createFirstTableau(p);	// already have coefficients of the problem, don't need to reparse
+			createFirstTableau(p);	// Ya tenemos los coeficientes del problema, no hace falta repetirlos.
 			p.status = lp_parsed;
 			return;
 		}
@@ -184,7 +184,7 @@ lpProblem.prototype.solve = function ()
 			extractCoefficients( p );
 			createFirstTableau( p );
 
-			p.status = lp_parsed;		// created tableau and unknowns from objective and constraints
+			p.status = lp_parsed;		// Cuadro creado e incógnitas a partir de objetivos y restricciones.
 			return;
 		}
 		
@@ -442,7 +442,7 @@ lpProblem.prototype.solve = function ()
 				foundZeros=false;
 				for (i = 1; i <= numRows-1; i++)
 					{
-						// Fix 01 if it is really small make it zero first:
+						//  01 Si es realmente pequeño, primero cero:
 						if (roundSigDig(currentTabl[i][numCols],p.maxSigDigits)==0) currentTabl[i][numCols]=0;
 						if ((p.rowIsStarred[i])&&(currentTabl[i][numCols]==0))
 						{
@@ -869,6 +869,9 @@ tableau.prototype.stringArray = function ( theMode, sigDigs ) {
 			break;
 	}
 	
+	filaZ = [];
+	filaZ = tabl;
+	//console.log(filaZ); ENCONTRE!
 	return tabl;
 }
 
@@ -879,31 +882,31 @@ tableau.prototype.toString = function ( theMode, sigDigs )
 	var nRows = tabl.length-1;
 	var nCols = tabl[1].length-1;
 	var theStr = "";
-	var maxLen = [];					// width of each column
+	var maxLen = [];					// ancho de cada columna
 	var i, j;
 	
 	for ( j = 0; j <= nCols; j++ )
-		maxLen[j] = 5;					// columns no less than 5 chars wide
+		maxLen[j] = 5;					// columnas no menos de 5 caracteres de ancho
 
 	for ( i = 0; i <= nRows; i++ )
 		for ( j = 0; j <= nCols; j++ )
 			if ( typeof tabl[i][j] === "string" )
 				maxLen[j] = Math.max( maxLen[j], tabl[i][j].length+1 );
 
-	// top row
+	// fila superior
 	theStr += ''.padEnd( maxLen[0] ) + '| ';
 	for ( j = 1; j <= nCols-1; j++ )
 		theStr += tabl[0][j].padCenter( maxLen[j] );
 	theStr += '|\n';
 	
-	// horizontal line
+	// linea horizontal
 	theStr += ''.padEnd( maxLen[0], '-' );
 	theStr += '+-';
 	for ( j = 1; j <= nCols-1; j++ )
 		theStr += ''.padEnd( maxLen[j], '-' );
 	theStr += '+-' + ''.padEnd( maxLen[nCols], '-' ) + '\n';
 	
-	// middle rows
+	// filas intermedias
 	for ( i = 1; i <= nRows-1; i++ ) {
 		theStr += (tabl[i][0]+' ').padStart( maxLen[0] );
 		theStr += '| ';
@@ -912,14 +915,14 @@ tableau.prototype.toString = function ( theMode, sigDigs )
 		theStr += '| ' + tabl[i][nCols].padCenter( maxLen[nCols] ) + '\n';
 	}
 	
-	// horizontal line
+	// linea horizontal
 	theStr += ''.padEnd( maxLen[0], '-' );
 	theStr += '+-';
 	for ( j = 1; j <= nCols-1; j++ )
 		theStr += ''.padEnd( maxLen[j], '-' );
 	theStr += '+-' + ''.padEnd( maxLen[nCols], '-' ) + '\n';
 	
-	// bottom row
+	// fila inferior
 	theStr += (tabl[nRows][0]+' ').padStart( maxLen[0] );
 	theStr += '| ';
 	for ( j = 1; j <= nCols-1; j++ )
@@ -927,6 +930,7 @@ tableau.prototype.toString = function ( theMode, sigDigs )
 	theStr += '| ' + tabl[nRows][nCols].padCenter( maxLen[nCols] ) + '\n';
 
 	return theStr;
+	
 }
 
 
@@ -939,11 +943,11 @@ tableau.prototype.toHTML = function ( theMode, sigDigs ,params)
 	var borCol =  ("lineColor" in params)?params.lineColor:"black";
 	var theStr = '<table cellpadding = ' + padding.toString() + ' cellspacing = "0"  style="display: inline; display: inline-table;"><tr><td style = "border-bottom: thin solid ' + borCol + '; border-right: thin solid ' + borCol + '"></td>';
 	
-	// top row
+	// fila superior
 	for (var i = 1; i<=nCols; i++) theStr += '<td style = "border-bottom: thin solid ' + borCol + ';  width:40px;text-align:center;' + ((i==nCols-1)?('border-right: thin solid ' + borCol) : '') + '"><b><i>' + ((i==nCols)?"":tabl[0][i].replace(/-/,"&minus;")) + '</i></b></td>';
 	theStr += '</tr>';
 
-	// middle rows
+	// filas intermedias
 	for (var i = 1; i <= nRows-1; i++) {
 		theStr += '<tr><td style = "text-align:right; border-right: thin solid ' + borCol + '"><b><i>' + tabl[i][0].replace(/-/,"&minus;") + '</i></b></td>';
 		for (var j = 1; j <= nCols; j++) {
@@ -954,7 +958,7 @@ tableau.prototype.toHTML = function ( theMode, sigDigs ,params)
 		theStr += '</tr>';
 	}
 
-	// bottom row
+	// fila inferior
 	theStr += '<tr><td style = "text-align:right;border-top: thin solid ' + borCol + '; border-right: thin solid ' + borCol + '; "><b><i>' + tabl[nRows][0].replace(/-/,"&minus;") + '</i></b></td>';
 	for (var j = 1; j <= nCols; j++) theStr += '<td style = "text-align:center; white-space:nowrap; border-top: thin solid ' + borCol + ';' + ((j==nCols-1)?('border-right: thin solid ' + borCol) : '') + '">'  + tabl[nRows][j].toString().replace(/-/,"&minus;") + '</td>';
 

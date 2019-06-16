@@ -46,6 +46,31 @@
 		
 		function showSolution( str ) {
 			document.getElementById("solutionout").innerHTML = str;
+			//console.log(str); este seria el lo que me da z y x1, x2
+		}
+
+		/*
+		Utilizar estas restricciones
+		5x1 + 8x2 <= 90
+		x2 <= 40
+		*/
+		// FILA DEL Z (Muestra los costo de oportunidad y la slack)
+		function showFilaZ( filafinalZ) {
+			var posicion = filafinalZ.length; //tamaño
+			var mostrar = filafinalZ[posicion-1]; // me devuelve el ultima fila
+			var cOportrunidad = "";
+			var slack = "";
+			var cantidadVariable = 2; // cuando tengamos el id de la cantidad de variables se le puede colocar aca
+			for (var i=1; i < ((mostrar.length) -2); i++){
+				if(i<= cantidadVariable){
+				cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
+				}else{
+				slack = slack +" "+ mostrar[i] + "<br>";
+				}
+			}
+				
+			document.getElementById("costoOportunidad").innerHTML = cOportrunidad;
+			document.getElementById("valorSlack").innerHTML = slack;
 		}
 
 		function adjustAccuracy() {
@@ -100,7 +125,15 @@
 					</div>					
 				</form>
 			</div>
-			
+			<p>
+				Costo de oportunidad :
+			<div id="costoOportunidad"></div>
+			</p>
+
+			<p>
+				Valor marginal :
+				<div id="valorSlack"></div>
+			</p>
 
 			</div>
 			<div id="info2" style="width:100%;text-align:center;margin:5px 0 5px 0">
@@ -181,7 +214,7 @@
 					Q.mode=lp_demo_mode;
 					Q.sigDigits=lp_demo_accuracy;
 					try{Q.solve()} //acá llama a solve para el problema
-					finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() );} //muestra la solución como string, también los pasos intermedios
+					finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() ); showFilaZ(filaZ)} //muestra la solución como string, también los pasos intermedios
 	}
 	</script>
 </body>
