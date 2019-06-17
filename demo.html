@@ -120,9 +120,20 @@
 						<input class="form-control" id="funcion" type="text" size="20">
 					</div>
 					<div class="col-md-3 mb-3">
-						<label for="restriccion">Restricciones: </label>
-						<textarea class="form-control" id="restriccion"  rows="5" cols="33"></textarea>
-					</div>					
+						<label for="cantVariable">¿Cuantas variables de decisión tiene el problema? </label>
+						<input class="form-control" id="cantVariable" type="text" size="20">
+					</div>	
+					<div class="col-md-3 mb-3">
+						<label for="cantRestriccion">¿Cuantas restricciones? </label>
+						<input class="form-control" id="cantRestriccion" type="text" size="20">
+					</div>	
+					
+						<button type="button" class="btn btn-outline-info"  onClick="CrearRelleno();">Aceptar</button>			
+						<p></p>
+						
+					
+				</form>
+				<form class="form-inline" id="cosas">		
 				</form>
 			</div>
 			<p>
@@ -216,6 +227,47 @@
 					try{Q.solve()} //acá llama a solve para el problema
 					finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() ); showFilaZ(filaZ)} //muestra la solución como string, también los pasos intermedios
 	}
+	
+	function CrearRelleno(){
+		var cantidadVariable = document.getElementById("cantVariable").value;
+		var cantidadRestricciones= document.getElementById("cantRestriccion").value;
+		var rellenoV = "";
+		
+	
+		for (var i = 1; i <= (cantidadRestricciones) ; i++) {//filas
+			
+			rellenoV += ' <div class="form-group row">';
+			for (var j = 1; j <= (cantidadVariable) ; j++) {//colmunas
+				rellenoV += `<input type="text" class="form-control" > 
+								 x`+[j]+' + ';
+				
+			}
+			
+			rellenoV = rellenoV.slice(0,-2); //dame todo el string menos el ultimo caracter
+			rellenoV += ` <select class="custom-select d-block w-20"  id="opcion">
+						<option	value ="menor_igual">≤</option>
+						<option value="mayor_igual">≥</option>
+						<option value="igual">=</option>
+						</select>
+						<input type="text" class="form-control" >`;
+
+			rellenoV += '</div>';
+		}
+
+	
+		document.getElementById("cosas").innerHTML = rellenoV;
+
+	}
 	</script>
+	<style>
+		#cosas {
+			
+			margin: 0 auto;
+
+			display: inline-block;
+			
+		}
+				
+	</style>
 </body>
 </html>
