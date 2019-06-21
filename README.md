@@ -29,28 +29,28 @@ integer <lista de variables separadas por comas>
 ```
 Especificar expresiones lineales usando yuxtaposición para la multiplicación, es decir "2x + 3y", no "2*x+3*y". Usar "<=" y ">=" para especificar inecuaciones. La función objetivo puede ser especificada como expresión lineal o como una ecuación declarando el nombre de la función objetivo, de la forma "p = 2x + 3y". Las restricciones deben tener la forma "<expresión lineal> <= <número>" donde la igualdad también puede ser ">=" o "=". No colocar comas en los números (afecta al análisis).
 
-#### Specify the LP problem by setting the objective and constraint properties.
-- Set `p.objective` to a string representing the objective function, in the form `[max|min]imize [var =] <linear expression>`. 
-- Set `p.constraints` to an array of strings representing the constraints. 
-- If you are solving an integer or mixed problem, set `p.isIntegral` to `true` and set `p.integerUnknowns` to an array of unknown names that should be constrained to be integers.
+#### Especificar el problema de LP fijando las propiedades de objetivo y restricciones.
+- Fijar `p.objective` a un string representando la función objetivo, de la forma `[max|min]imizar [var =] <expresión lineal>`. 
+- Fijar `p.constraints` a un arreglo de strings representando las restricciones.
+- Si se está resolviendo un problema entero o mixto, fijar `p.isIntegral` a `true` y fijar `p.integerUnknowns` a un arreglo de nombres de variables que deben ser restringidas a valores enteros.
 
-### Setting flags
-- `p.mode` can be set to
-  - `lp_Integral` for all tableaus to have integer entries and solutions to be given as fractions
-  - `lp_Fraction` for all tableaus to have fractional entries and solutions to be given as fractions
-  - `lp_Decimal` for tableaus and solutions to be given using decimal notation.
-- `p.showArtificialVariables` defaults to `false`, in which case the slack and surplus variables are not shown as part of solutions. If set to `true`, these variables are reported in solutions.
-- `p.sigDigits` is the number of significant digits to show in decimal mode in tableau entries and solutions. It defaults to 6.
-- `lp_verboseLevel` is a global variable controlling what is saved in the global string `lp_trace_string` while the problem is being solved. The default is to save nothing. If `lp_verboseLevel = lp_verbosity_tableaus`, all intermediate tableaus are saved. If `lp_verboseLevel = lp_verbosity_solutions` then all tableaus and the corresponding basic solutions are saved. The string saved is HTML, suitable to insert in a `<div>`, for example, to display on a web page.
-- `lp_reportErrorsTo` is a global string controlling how errors are reported. If empty (the default), errors are not reported. If set to `"alert"`, errors cause alerts to be posted. If set to the ID of an HTML element, errors are inserted in that HTML element on the page.
+### Poniendo banderas
+- `p.mode` puede tomar uno de los siguientes valores
+  - `lp_Integral` para que todas las tablas tengan entradas enteras y salidas fraccionales.
+  - `lp_Fraction` para que todas las tablas tengan entradas fraccionales y salidas también dadas como fracción.
+  - `lp_Decimal` para que las tablas y soluciones usen notación decimal.
+- `p.showArtificialVariables` por default está en `false`, en cuyo caso las variables de slack y superávit no se muestran como parte de las soluciones. Si se fija a `true`, estas variables se presentan en las soluciones.
+- `p.sigDigits` es el número de dígitos significativos a mostrar en modo decimal en las entradas de las tablas y en soluciones. Por default queda en 6.
+- `lp_verboseLevel` es una variable global que controla lo que se guarda en el string `lp_trace_string` mientras el problema está siendo resuelto. El default es no guardar nada. Si `lp_verboseLevel = lp_verbosity_tableaus`, se guardan todas las tablas intermedias. Si `lp_verboseLevel = lp_verbosity_solutions` entonces todas las tablas y las correspondientes soluciones básicas se guardan. El string guardado es HTML, adecuado para insertar en un `<div>`, por ejemplo, para mostrar en una página web.
+- `lp_reportErrorsTo` es un string global que controla como se reportan los errores. Si está vacío (por default lo está), los errores no se reportan. Si se fija a `"alert"`, los errores causan alertas que son avisadas. Si se fija al ID de un elemento HTML, los errores se insertan en dicho elemento en la página.
 
-### Calling `solve()`
-Once the problem is set up and flags properly set, call `p.solve()`, which takes no arguments. If something is wrong with the way the problem was stated, it may throw an error, which will be a string describing the problem. This string will also be available as `p.error`.
+### Llamando a `solve()`
+Una vez que el problema está establecido y las banderas puestas correctamente, , llamar a `p.solve()`, que no toma argumentos. Si hay algún problema con la forma en que se planteó el problema, puede generar un error, que será un string describiendo el problema. El string estará también disponible como `p.error`.
 
-### Retrieving the solution
-After calling `p.solve()`, check `p.status`, which will be either `lp_optimal` if an optimal solution was found, or `lp_no_solution` if there was no solution. In the latter case, the property `p.message` contains a string indicating why no solution was found.
+### Recuperando la solución
+Luego de llamar a `p.solve()`, checkear `p.status`, que será `lp_optimal` si se encontró una solución óptima, o `lp_no_solution` si no hubo solución. En este último caso, la propiedad `p.message` contiene un string indicando por qué no se encontró solución.
 
-Assuming a solution was found, `p.tableaus` will be an array of all the tableaus generated by the simplex method (see Tableaus below for more information about these tableaus and methods to display them nicely) and `p.solutions` will be an array of solutions, each being an array of values for the variables. The property `p.unknowns` is an array giving the names of the unknowns in the order in which the values appear in the solutions.
+Asumiendo que se encontró una solución, `p.tableaus` será un arreglo de todas las tablas generadas por el método simplex (ver Tablas más abajo para más información acerca de las tablas y métodos para mostrarlas de forma correcta) y `p.solutions` será un arreglo de soluciones, siendo cada una un arreglo de valores para las variables. La propiedad `p.unknowns` is an array giving the names of the unknowns in the order in which the values appear in the solutions.
 
 To get the solutions as nicely formatted strings, call one of the following:
 
