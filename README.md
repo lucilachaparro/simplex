@@ -1,31 +1,33 @@
 # simplex
-This solver allows one to enter a linear programming problem in English (or Spanish), then parses and solves it. To see it in action, open the demo file in a browser, and press the "Examples" button.
-## Using it in your own code
-Using the solver involves four steps:
+Este solucionador de problemas de programación lineal permite ingresar un problema en español o inglés, luego lo analiza y lo resuelve. Para verlo en acción, abrir el archivo demo en un navegador.
 
-1. Create an lpProblem object and specify the LP problem to solve.
-2. Set flags describing the kind of problem or the kind of output you want.
-3. Call solve().
-4. Retrieve the solution.
+## Para usarlo en un código propio
+Usar el solucionador involucra cuatro pasos:
 
-### Creating an lpProblem
-You create a new lpProblem object with
+1. Crear un objeto lpProblem y especificar el problema de PL a resolver.
+2. Fijar banderas describiendo el tipo de problema a resolver o el tipo de salida que se quiere.
+3. Llamar a solve().
+4. Recuperar la solución.
+
+### Creando un lpProblem
+Un nuevo objeto lpProblem se crea con
 ```
 p = new lpProblem();
 ```
-The constructor takes an optional argument, another lpProblem object to copy. If you don't copy an existing object, you'll next want to specify the LP problem to solve. This can be done in one of several ways:
+El constructor toma como argumento opcional, otro lpProblem para copiar. Si no se copia un objeto existente, el próximo paso es especificar el problema de PL a resolver. Esto se puede hacer de una de las siguientes maneras:
 
-#### Specify the LP problem as a string.
-Set `p.problemStr` to a full LP problem, given as a string. The string must have the form
+#### Especificar el problema de PL como string.
+
+Establecer `p.problemStr` como un problema completo de PL, dado como string. El string debe tener la forma
 ```
-Maximize <linear objective> subject to
-<linear constraints separated by commas or line breaks>
+Maximizar <objetivo linear> sujeto a
+<restricciones lineales separadas por comas o saltos de línea>
 ```
-`Maximize` can be replaced by `minimize` and Spanish can be used as well. If you want to constrain one or more variables to have integer values, add the following at the end of the string:
+`Maximizar` puede ser reemplazado por `minimizar` y puede usarse inglés también. Si se desea restringir una o más variables a valores enteros, se debe agregar lo siguiente al final del string:
 ```
-integer <comma separated list of variables>
+integer <lista de variables separadas por comas>
 ```
-Specify linear expressions using juxtaposition for multiplication, so `2x + 3y`, *not* `2*x+3*y`. Use `<=` and `>=` to specify inequalities. The objective function may be specified as a linear expression or as an equation specifying the name of the objective function, like `p = 2x + 3y`. Constraints should have the form `<linear expression> <= <number>` where the inequality could also be `>=` or `=`. Do not put commas in numbers.
+Especificar expresiones lineales usando yuxtaposición para la multiplicación, es decir "2x + 3y", no "2*x+3*y". Usar "<=" y ">=" para especificar inecuaciones. La función objetivo puede ser especificada como expresión lineal o como una ecuación declarando el nombre de la función objetivo, de la forma "p = 2x + 3y". Las restricciones deben tener la forma "<expresión lineal> <= <número>" donde la igualdad también puede ser ">=" o "=". No colocar comas en los números (afecta al análisis).
 
 #### Specify the LP problem by setting the objective and constraint properties.
 - Set `p.objective` to a string representing the objective function, in the form `[max|min]imize [var =] <linear expression>`. 

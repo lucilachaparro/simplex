@@ -238,7 +238,7 @@ lpProblem.prototype.solve = function ()
 		else
 			throw lp_UnspecMaxMinErr; //error si no está especificado max ni min
 		
-		var coreObj = (obj.indexOf("subject") == -1) //qué significa que el index sea -1?
+		var coreObj = (obj.indexOf("subject") == -1) //pregunta por el índice -1 para significar que no se encuentra ese elemento
 					  ? obj.substring(4)
 					  : obj.substring(4, Math.max(5,obj.indexOf("subject")-1)); //según la condición hace una cosa o la otra
 		if (coreObj.indexOf("=") > -1) 
@@ -296,12 +296,12 @@ lpProblem.prototype.solve = function ()
 		p.constraintRHS = [];		// empieza vacía la matriz de los lados derechos
 
 		// primero se arreglan las restricciones de igualdad
-		var nC=p.constraints.length;
+		var nC=p.constraints.length; //nC = número de restricciones
 		
 		for ( var i = 0; i < nC; i++) {
-			if (p.constraints[i].search(/[<>]/)==-1) {
+			if (p.constraints[i].search(/[<>]/)==-1) { //si no encuentra un signo de desigualdad quiere decir que hay restricciones de igualdad
 				p.constraints.push(p.constraints[i].replace(/=/,"<="));
-				p.constraints[i] = p.constraints[i].replace(/=/,">=");
+				p.constraints[i] = p.constraints[i].replace(/=/,">="); //agrega una restriccion para que sea menor y reemplaza en la original para que sea mayor
 			}
 		}
 		
