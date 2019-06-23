@@ -342,22 +342,21 @@ lpProblem.prototype.solve = function ()
 			firstTableau[0][j] = p.unknowns[j-1];
 		}
 		for (var ss = 1; j < p.unknowns.length + numRows; j++, ss++) {
-			firstTableau[0][j] = "s" + ss.toString();
+			firstTableau[0][j] = "s" + ss.toString(); //agrega las variables de slack
 		}
 		firstTableau[0][j] = (p.maximize ? "" : "-") + p.objectiveName;
 		
-		// Now the rows coming from the constraints
+		// Luego las filas correspondientes a las restricciones
 		p.rowIsStarred = p.systemRowIsStarred.slice();
 		for (var i = 1; i < p.systemMatrix.length; i++) {
 			firstTableau[i] = p.systemMatrix[i].slice();
-			firstTableau[i].unshift( firstTableau[0][p.unknowns.length + i] ); // name of slack/surplus variable
-			if (p.rowIsStarred[i]) firstTableau[i][0] = "*"+firstTableau[i][0]; // star if appropriate
+			firstTableau[i].unshift( firstTableau[0][p.unknowns.length + i] ); // nombre de variables de slack/superavit
+			if (p.rowIsStarred[i]) firstTableau[i][0] = "*"+firstTableau[i][0]; // marcar con asterisco si corresponde
 			for (var j=1;j<numRows+1;j++) firstTableau[i].push( (i!=j)? 0 : (p.rowIsStarred[i]? -1:1) );
 			firstTableau[i].push( p.constraintRHS[i] );
 		}
 		
-		// Now the rows coming from the extra constraints used in ILP
-		if ( p.isIntegral ) {
+		// Luego las filas correspondientes a las restricciones agregadas en la PLE
 			for ( var u = 0; u < p.integerUnknowns.length; u++ ) {
 				var j = p.unknowns.indexOf( p.integerUnknowns[u] );
 				if ( p.integerMins[u] > -Infinity ) {
@@ -381,7 +380,7 @@ lpProblem.prototype.solve = function ()
 			}
 		}
 
-		// Now the row coming from the objective function
+		// Luego la fila correspondiente a la función objetivo
 		firstTableau[i] = p.objectiveCoeffs.slice();
 		firstTableau[i].unshift( firstTableau[0][numCols-1] );
 		if (p.maximize) {
@@ -398,7 +397,7 @@ lpProblem.prototype.solve = function ()
 		p.tableaus.push(firstTableau);
 		p.tableauDimensions=[numRows,numCols];
 		
-		// add the slack variables to the list of unknowns
+		// agregar las variables de slack a la lista de incógnitas
 		for ( j = p.unknowns.length+1; j < firstTableau[0].length-1; j++ )
 			p.unknowns.push( firstTableau[0][j] );
 	
@@ -426,7 +425,7 @@ lpProblem.prototype.solve = function ()
 			return;
 		}
 		else {
-			// Phase 1 work:
+			// trabajo de la fase 1:
 			var numRows=p.tableauDimensions[0], numCols=p.tableauDimensions[1];
 			var foundZeros=false;
 			while (p.status < lp_phase1)
@@ -435,9 +434,9 @@ lpProblem.prototype.solve = function ()
 				if(currentTablIndex > p.maxNumTableaus) 
 					throw lo_tooManyTabloeausErr + p.maxNumTableaus;
 				var currentTabl = p.tableaus[currentTablIndex];
-				// first unstar all rows with zeros on the right-hand side 
-				// by reversing the inequalities
-				// this is absolutely necessary in case of things like
+				// desmarcar todas las filas con ceros en el lado derecho
+				// dando vuelta las inecuaciones
+				// es necesario en casos como
 				// -x - y >= 0
 				foundZeros=false;
 				for (i = 1; i <= numRows-1; i++)
