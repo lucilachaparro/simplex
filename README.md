@@ -27,7 +27,7 @@ Maximizar <objetivo linear> sujeto a
 ```
 integer <lista de variables separadas por comas>
 ```
-Especificar expresiones lineales usando yuxtaposición para la multiplicación, es decir "2x + 3y", no "2*x+3*y". Usar "<=" y ">=" para especificar inecuaciones. La función objetivo puede ser especificada como expresión lineal o como una ecuación declarando el nombre de la función objetivo, de la forma "p = 2x + 3y". Las restricciones deben tener la forma "<expresión lineal> <= <número>" donde la igualdad también puede ser ">=" o "=". No colocar comas en los números (afecta al análisis).
+Especificar expresiones lineales usando yuxtaposición para la multiplicación, es decir `2x + 3y`, no `2*x+3*y`. Usar `<=` y `>=` para especificar inecuaciones. La función objetivo puede ser especificada como expresión lineal o como una ecuación declarando el nombre de la función objetivo, de la forma `p = 2x + 3y`. Las restricciones deben tener la forma `<expresión lineal> <= <número>` donde la igualdad también puede ser `>=` o `=`. No colocar comas en los números (afecta al análisis).
 
 #### Especificar el problema de LP fijando las propiedades de objetivo y restricciones.
 - Fijar `p.objective` a un string representando la función objetivo, de la forma `[max|min]imizar [var =] <expresión lineal>`. 
