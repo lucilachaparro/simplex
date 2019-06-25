@@ -14,24 +14,27 @@
 		var lp_demo_accuracy=6;
 		var lp_demo_mode="decimal";
 		var lp_demo_verboseLevel=lp_verbosity_none;
-		var exampleStr = [
-		"Maximize p = (1/2)x + 3y + z + 4w subject to \nx + y + z + w <= 40\n2x + y - z - w >= 10\nw - y >= 12"
-		,
-		"minimize z = 900x1 + 1400x2 + 700x3 + 1000x4 + 1700x5 + 900x6 subject to\nx1 + x2 + x3 <= 10\nx4 + x5 + x6 <= 10\nx1 + x4 >= 6\nx2 + x5 >= 4\nx3 + x6 >= 4\nx4 - x6 <= 0"
-		,
-		
-		"Maximize p = (1/2)x + 3y + z + 4w subject to \nx + y + z + w <= 40 \n2x + y - z - w >= 10 \nw - y >= 12 \ninteger w, x, y, z"
-		,
-		"Maximize p = x + 2y + 3z subject to \nx + y <= 20.5\ny + z <= 20.5\nx + z <= 30.5\ninteger x, y, z" ,
-		"Maximize p = x+y\nx+y<=.75\nx+y>=.5\ninteger x,y"]
+		var exampleObj = [
+		"p = (1/2)x + 3y + z + 4w",
+		"z = 900x1 + 1400x2 + 700x3 + 1000x4 + 1700x5 + 900x6",
+		"p = x + 2y + 3z",
+		"p = x+y"]
+		var exampleRest = [
+		"x + y + z + w <= 40\n2x + y - z - w >= 10\nw - y >= 12",
+		"x1 + x2 + x3 <= 10\nx4 + x5 + x6 <= 10\nx1 + x4 >= 6\nx2 + x5 >= 4\nx3 + x6 >= 4\nx4 - x6 <= 0",
+		"x + y + z + w <= 40 \n2x + y - z - w >= 10 \nw - y >= 12 \ninteger w, x, y, z",
+		"x+y<=.75\nx+y>=.5\ninteger x,y"]
 
 		function showExamples() {
-			document.getElementById("inputarea").value=exampleStr[lp_demo_exampleNumber%exampleStr.length];
+			document.getElementById("funcion").value=exampleObj[lp_demo_exampleNumber%exampleObj.length];
+			document.getElementById("restriccion").value=exampleRest[lp_demo_exampleNumber%exampleRest.length];
 			lp_demo_exampleNumber++;
+
 		}
 
 		function clearAll() {
-			document.getElementById("inputarea").value="";
+			document.getElementById("funcion").value="";
+						document.getElementById("restriccion").value="";
 			document.getElementById("solutionout").innerHTML="Una solución óptima (o mensaje) aparecerá aquí.";
 			document.getElementById("outputarea").innerHTML="Las tablas del Método Simplex apareceran aquí.";
 		}
@@ -92,7 +95,7 @@
 					</div>
 					<div class="col-md-3 mb-3">
 						<label for="funcion">Función: </label>
-						<input class="form-control" id="funcion" type="text" size="20">
+						<textarea class="form-control" id="funcion" type="text" size="20"></textarea>
 					</div>
 					<div class="col-md-3 mb-3">
 						<label for="restriccion">Restricciones: </label>
@@ -111,6 +114,8 @@
 			</div>
 			<div id="buttonsdiv" style="width:100%;text-align:center;margin:5px 0 5px 0">
 					<button class="btn btn-primary" onClick="Resolv();">Resolver</button>
+					&#160; &#160;
+					<button class="btn btn-secondary" onClick="showExamples();">Ejemplos</button>
 					&#160; &#160;
 					<button class="btn btn-secondary" onClick="clearAll();">Borrar todo</button>
 				
@@ -169,19 +174,19 @@
 		if (ob == "Maximizar"){
 			ob = "Maximize ";
 		}else{
-			ob = "minimize ";
+			ob = "Minimize ";
 		}
 
 	ArrayFormateado = `${ob}${f}${subject}${r}`; //arrayformateado guarda los datos del problema, separados
 	console.log({ArrayFormateado});
 	clearOutput();
 					adjustAccuracy();setMode();setShowTabl();
-					var Q = new lpProblem( ArrayFormateado); //crea un objeto lpProblem a partir de arrayformateado
+					var Q = new lpProblem(ArrayFormateado); //crea un objeto lpProblem a partir de arrayformateado
 					lp_verboseLevel=lp_demo_verboseLevel;
 					Q.mode=lp_demo_mode;
 					Q.sigDigits=lp_demo_accuracy;
 					try{Q.solve()} //acá llama a solve para el problema
-					finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() );} //muestra la solución como string, también los pasos intermedios
+					finally{showOutput( lp_trace_string ); showSolution(Q.solutionToString());} //muestra la solución como string, también los pasos intermedios
 	}
 	</script>
 </body>
