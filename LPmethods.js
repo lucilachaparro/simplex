@@ -355,8 +355,9 @@ lpProblem.prototype.solve = function ()
 			for (var j=1;j<numRows+1;j++) firstTableau[i].push( (i!=j)? 0 : (p.rowIsStarred[i]? -1:1) );
 			firstTableau[i].push( p.constraintRHS[i] );
 		}
-		
+
 		// Luego las filas correspondientes a las restricciones agregadas en la PLE
+		if ( p.isIntegral ) {
 			for ( var u = 0; u < p.integerUnknowns.length; u++ ) {
 				var j = p.unknowns.indexOf( p.integerUnknowns[u] );
 				if ( p.integerMins[u] > -Infinity ) {
