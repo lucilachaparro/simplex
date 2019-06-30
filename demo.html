@@ -5,7 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Método Simplex</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>SIMGRAF-IO Programación Lineal-Método Simplex</title>
 	<script src = "LPdefs.js"></script>
 	<script src = "LPmethods.js"></script>
 	<script>
@@ -78,12 +79,19 @@
 
 <body class="bg-light">
 
+  <ul class="topnav">
+  <li class="titulo">SIMGRAF-IO</li>
+  <li><a class="active" href="#inicio">Inicio</a></li>
+  <li><a href="#material_teorico">Material Teorico</a></li>
+  <li><a href="#ayuda">Ayuda</a></li>
+  </ul>
+
 		<div id="info1" class="py-5 text-center">
-			<h2>Método simplex</h2>
+			<h2>SIMGRAF-IO</h2> 
+			<h3>Programación Lineal-Método Simplex</h3>
 			<p class="lead"> Escriba su problema de programacion lineal.  Luego presione "Resolver".</p>
-			<p>
-				(Presione "Ejemplos" para pasar por algunos problemas ya configurados).
-			</p>
+			<p class= "lead">
+				(Presione "Ejemplos" para pasar por algunos problemas ya configurados). </p>
 		</div>
 		<center>
 			<div id="input">
@@ -101,8 +109,8 @@
 					</div>
 					<div class="col-md-3 mb-3">
 						<label for="restriccion">Restricciones: </label>
-						<label for="aclaracion">(Si se trata de valores enteros aclarar en la última línea como "integer var1, var2" etc) </label>
 						<textarea class="form-control" id="restriccion"  rows="5" cols="33"></textarea>
+						<label for="restriccion">(Si se trata de valores enteros aclarar en la última línea como "integer var1, var2" etc) </label>
 					</div>					
 				</form>
 			</div>
