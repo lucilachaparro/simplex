@@ -871,7 +871,7 @@ tableau.prototype.stringArray = function ( theMode, sigDigs ) {
 	
 	filaZ = [];
 	filaZ = tabl;
-	//console.log(filaZ); ENCONTRE!
+	console.log(filaZ); 
 	return tabl;
 }
 
