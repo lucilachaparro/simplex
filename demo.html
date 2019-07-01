@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-
 <html>
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -123,6 +125,28 @@
 			<div id="solutionout" style="text-align:left;background-color:white;width:95%;font-family:monospace;border:thin solid;padding:10px">
 				Una solución óptima (o mensaje) aparecerá aquí.
 			</div>
+		    </br>
+			<div class="col-md-5 mb-3">
+                  <div class="card-deck">
+                  <div class="card bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header font-weight-bold"> COSTO DE OPORTUNIDAD </div>
+                      <div class="card-body">
+                    
+                      <div id="costoOportunidad" ></div>
+                    </div>
+                  </div>
+                  
+
+                  <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header font-weight-bold"> VALOR MARGINAL </div>
+                    <div class="card-body">
+                    
+                    <div id="valorSlack"></div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
 			<div id="buttonsdiv" style="width:100%;text-align:center;margin:5px 0 5px 0">
 					<button class="btn btn-primary" onClick="Resolv();">Resolver</button>
 					&#160; &#160;
@@ -173,32 +197,86 @@
 		</center>
 
 	<script>
-	function Resolv() {
-		var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
-		var f = document.getElementById("funcion").value; //variable f toma el valor del cuadro de texto funcion
-		var r = document.getElementById("restriccion").value; //variable r toma el valor del cuadro de texto restriccion
+	
+	
+	// FILA DEL Z (Muestra los costo de oportunidad y la slack)
+            function showFilaZ( filafinalZ, arrayVariables, ob, str, rest) {
+              var posicion = filafinalZ.length; //tamaño
+              var mostrar = filafinalZ[posicion-1]; // me devuelve el ultima fila
+              var cOportrunidad = "";
+              var slack = "";
+              var cantidadVariable = arrayVariables.length; // cuando tengamos el id de la cantidad de variables se le puede colocar aca
+              var j = 1;
+              var cantidadRestriccion = rest.length;
+              var cantidadCero = 0;
+              console.log(mostrar);
+              if(str == 4){
+              for (var i=1; i < ((mostrar.length) -2); i++){
+                if(i<= cantidadVariable){
+                //cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
+                cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Item`+[i]+":"+" "+ mostrar[i] +` </p>`;
+                if(mostrar[i] == 0){
+                  cOportrunidad = cOportrunidad + "Este item forma parte de la solución" + "<br>"+"<br>";
+                  cantidadCero += 1 ; 
+                }else{
+                  if (ob == "Maximize "){
+                    cOportrunidad = cOportrunidad + "Si se incluye una unidad mas de este item el funcional disminuiria en: " + mostrar[i] + "<br>"+"<br>";
+                  }else{
+                    cOportrunidad = cOportrunidad + "Si se incluye una unidad mas de este item el funcional aumentaria en:  " + mostrar[i] + "<br>"+"<br>";
+                  }
+                 }
+                 
+                }else{
+                slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+ mostrar[i] + ` </p>`;
 
-		var ArrayFormateado;
-		const subject = " subject to ";
+                if( mostrar[i] == 0){
+                  slack = slack + "Este item es escaso" + "<br>";
+                  cantidadCero += 1 ;
+                }else{
+                  if (ob == "Maximize "){
+                  slack = slack + "Si se incluye una unidad mas de este recurso el funcional aumentaria en " + mostrar[i] + "<br>"+"<br>";
+                  }else{
+                    slack = slack + "Si se incluye una unidad mas de este recurso el funcional disminuiria en " +mostrar[i] + "<br>"+"<br>";
+                  }
+                }
+                j += 1;
+              }
+            }
+              document.getElementById("costoOportunidad").innerHTML = cOportrunidad;
+              document.getElementById("valorSlack").innerHTML = slack;
+            }
+            if (cantidadCero > cantidadRestriccion){
+              document.getElementById("situacion").innerHTML = "El problema tiene Multiples soluciones";
+            }
+          }
 
-		
-		if (ob == "Maximizar"){
-			ob = "Maximize ";
-		}else{
-			ob = "Minimize ";
-		}
 
-	ArrayFormateado = `${ob}${f}${subject}${r}`; //arrayformateado guarda los datos del problema, separados
-	console.log({ArrayFormateado});
-	clearOutput();
-					adjustAccuracy();setMode();setShowTabl();
-					var Q = new lpProblem(ArrayFormateado); //crea un objeto lpProblem a partir de arrayformateado
-					lp_verboseLevel=lp_demo_verboseLevel;
-					Q.mode=lp_demo_mode;
-					Q.sigDigits=lp_demo_accuracy;
-					try{Q.solve()} //acá llama a solve para el problema
-					finally{showOutput( lp_trace_string ); showSolution(Q.solutionToString());} //muestra la solución como string, también los pasos intermedios
-	}
+ 		function Resolv() {
+              var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
+              var f = document.getElementById("funcion").value; //variable f toma el valor del cuadro de texto funcion
+              var r = document.getElementById("restriccion").value; //variable r toma el valor del cuadro de texto restriccion
+
+              var ArrayFormateado;
+              const subject = " subject to ";
+
+
+              if (ob == "Maximizar"){
+                ob = "Maximize ";
+              }else{
+                ob = "minimize ";
+              }
+
+            ArrayFormateado = `${ob}${f}${subject}${r}`; //arrayformateado guarda los datos del problema, separados
+            console.log({ArrayFormateado});
+            clearOutput();
+                    adjustAccuracy();setMode();setShowTabl();
+                    var Q = new lpProblem( ArrayFormateado); //crea un objeto lpProblem a partir de arrayformateado
+                    lp_verboseLevel=lp_demo_verboseLevel;
+                    Q.mode=lp_demo_mode;
+                    Q.sigDigits=lp_demo_accuracy;
+                    try{Q.solve()} //acá llama a solve para el problema
+                    finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() ); showFilaZ(filaZ, Q.formatUnknowns(), ob, Q.status, Q.constraints)} //muestra la solución como string, también los pasos intermedios
+            }
 	</script>
-</body>
+</body>			
 </html>
