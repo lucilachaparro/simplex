@@ -71,13 +71,13 @@
                     Q.mode=lp_demo_mode;
                     Q.sigDigits=lp_demo_accuracy;
                     try{Q.solve()} //acá llama a solve para el problema
-                    finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() ); showFilaZ(filaZ, Q.formatUnknowns(), ob, Q.status, Q.constraints)} //muestra la solución como string, también los pasos intermedios
+                    finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() ); showFilaZ(filaZ, Q.formatUnknowns(), ob, Q.status, Q.constraints, Q.formatLastSolution(true))} //muestra la solución como string, también los pasos intermedios
             }
 
             
 
 	// FILA DEL Z (Muestra los costo de oportunidad y la slack)
-            function showFilaZ( filafinalZ, arrayVariables, ob, str, rest) {
+            function showFilaZ( filafinalZ, arrayVariables, ob, str, rest, sol) {
               var posicion = filafinalZ.length; //tamaño
               var mostrar = filafinalZ[posicion-1]; // me devuelve el ultima fila
               var cOportrunidad = "";
@@ -86,7 +86,7 @@
               var j = 1;
               var cantidadRestriccion = rest.length;
               var cantidadCero = 0;
-              console.log(mostrar);
+              console.log(sol);
               if(str == 4){
               for (var i=1; i < ((mostrar.length) -2); i++){
                 if(i<= cantidadVariable){
@@ -107,7 +107,7 @@
                 slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+ mostrar[i] + ` </p>`;
 
                 if( mostrar[i] == 0){
-                  slack = slack + "Este recurso está saturado" + "<br>";
+                  slack = slack + "Existe un sobrante de " + sol[i-1] +" de este recurso" + "<br>";
                   cantidadCero += 1 ;
                 }else{
                   if (ob == "Maximize "){
