@@ -130,4 +130,87 @@
             }
           }
 
+  function CrearRelleno(){
+    var cantidadVariable = document.getElementById("cantVariable").value;
+    var cantidadRestricciones= document.getElementById("cantRestriccion").value;
+    var DivRestricciones = "";
+    var Divfuncion = "";
+    Divfuncion += `<center>
+        <div class="col-md-6 mb-6">
+          <label for="objetivo">¿Cuál es el objetivo de la función?</label>
+          <br>
+            <select class="custom-select d-block w-100" id="objetivo">
+            <option value ="Maximizar">Maximizar</option>
+            <option value="Minimizar">Minimizar</option>
+            </select>
+          </div>
+          </center>
+          <br>
+          <div class="form-group row">
+            <label for="funcion" style="
+              padding-right: 10px;
+          ">Función:     </label>` + '       Z=    ';
+    for (var i = 1; i <= (cantidadRestricciones) ; i++) {//filas
+      DivRestricciones += ' <div  class="form-group row">';
+      for (var j = 1; j <= (cantidadVariable) ; j++) {//colmunas
+        DivRestricciones += `<input type="text" id='C${i}${j}' class="form-control2" >
+                 X`+[j]+'     + '; //formateo de texto se llama
+      }
+      DivRestricciones = DivRestricciones.slice(0,-2); //dame todo el string menos el ultimo caracter
+      DivRestricciones += `<select class="custom-select d-block w-20"  id='opcion${i}'>
+            <option value ="menor_igual">≤</option>
+            <option value="mayor_igual">≥</option>
+            <option value="igual">=</option>
+            </select>
+            <input type="text" id='B${i}' class="form-control2" >`;
+      DivRestricciones += '</div>';
+    }
+    for (var j = 1; j <= (cantidadVariable) ; j++) {//columnas
+        Divfuncion += `<input type="text" id='Z${j}' class="form-control" >  
+                      X`+[j]+'   + ';
+      }
+    Divfuncion = Divfuncion.slice(0,-2);
+    Divfuncion += `</div>
+    <p></p>
+    <button type="button" class="btn btn-outline-info"  onClick="mostrar()">Continuar</button>`;
+    document.getElementById("FormRestricciones").innerHTML = DivRestricciones;
+    document.getElementById("FormFuncion").innerHTML = Divfuncion;
+    
+  }
 
+   function mostrar() {
+    var cantidadVariable = document.getElementById("cantVariable").value;
+    var cantidadRestricciones= document.getElementById("cantRestriccion").value;
+    var TxtRestricciones = "";
+    var TxtFuncion = "";
+    //este FOR toma todo lo de las restricciones//
+    for (var i = 1; i <= (cantidadRestricciones) ; i++) {//filas
+      for (var j = 1; j <= (cantidadVariable) ; j++) {//colmunas
+        var coeficiente = document.getElementById(`C${i}${j}`).value;
+        TxtRestricciones += coeficiente + 'X'+ [j] +' + ';
+      }
+      TxtRestricciones = TxtRestricciones.slice(0,-2);
+      var opcion = document.getElementById(`opcion${i}`).value;
+      switch (opcion){
+        case 'menor_igual':
+        opcion = '≤ ';
+        break;
+        case 'mayor_igual':
+        opcion = '≥ ';
+        break;
+        case 'igual':
+        opcion = '= '
+        break;
+      }
+      var valor = document.getElementById(`B${i}`).value;
+      TxtRestricciones += opcion + valor + "<br>";
+    }
+    //este FOR toma todo lo del Z//
+    for (var j = 1; j <= (cantidadVariable) ; j++) {//filas
+      var Zi = document.getElementById(`Z${j}`).value;
+      TxtFuncion += Zi + 'X'+ [j] +' + ';
+    }
+    TxtFuncion = TxtFuncion.slice(0,-2);
+    document.getElementById("funcion").innerHTML = TxtFuncion;
+    document.getElementById("restriccion").innerHTML = TxtRestricciones;
+  }
