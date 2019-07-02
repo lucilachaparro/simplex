@@ -40,6 +40,18 @@
   <li><a href="#ayuda">Ayuda</a></li>
   </ul>
 
+ <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Modo texto</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"  id="coef-tab" data-toggle="tab" href="#coef" role="tab" aria-controls="coef"aria-selected="false">Modo coeficientes</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
 		<div id="info1" class="py-5 text-center">
 			  <div id="info1" class="text-center">
     				<div class= "col-md-12"> 
@@ -153,6 +165,40 @@
 			</div>
 			<div id="spacer" style="height:20px"></div>
 		</center>
-
+	</div>
+	<div class="tab-pane fade" id="coef" role="tabpanel" aria-labelledby="coef-tab">
+		  <div id="info1" class="text-center">
+    <div class= "col-md-12"> 
+      <img src = "./img/img.jpg">
+    </div> 
+  </div>
+    <center>
+      <div id="input">
+        <form id="formulario">
+          <div class="col-md-12 mb-12">
+            <label for="cantVariable">¿Cuántas variables de decisión tiene el problema? </label> 
+            <input class="form-control" id="cantVariable" type="text" size="20">
+          </div> 
+          <br> 
+          <div class="col-md-6 mb-6">
+            <label for="cantRestriccion">¿Cuántas restricciones? </label> <input class="form-control" id="cantRestriccion" type="text" size="20">
+          </div>  
+          <br>
+        
+            <button type="button" style color:"#115206" class="btn btn-outline-info"  onClick="CrearRelleno();">  Aceptar</button>      
+            <p></p>
+          <br>        
+        </form>
+        <form class="form-inline" id="FormRestricciones"></form>
+        <p></p>
+        <p id="restriccion"></p>
+        <p id="funcion"></p>
+        <p></p>
+        <form class="form-inline" id="FormFuncion"></form>
+      </div>
+    </center>
+</div>
+	</div>	
+</div>
 </body>			
 </html>
