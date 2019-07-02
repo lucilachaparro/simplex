@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>SIMGRAF-IO Programación Lineal-Método Simplex</title>
+	<script src = "LPdefs.js"></script>
+	<script src = "LPmethods.js"></script>
+	<script src = "functions.js"></script>
+
+
+<body class="bg-light">
+
+  <ul class="topnav">
+  <li class="titulo">SIMGRAF-IO</li>
+  <li><a href="demo.html">Inicio</a></li>
+  <li><a class="active" href="teoria.html">Material Teorico</a></li>
+  <li><a href="#ayuda">Ayuda</a></li>
+  </ul>
+
+ <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Método simplex</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"  id="costo-tab" data-toggle="tab" href="#costo" role="tab" aria-controls="costo"aria-selected="false">Costo de Oportunidad</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="valor-tab" data-toggle="tab" href="#valor" role="tab" aria-controls="valor" aria-selected="false">Valor Marginal</a>
+  </li>
+</ul>
+
+   <div class="tab-content" id="myTabContent">
+   	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+		<div class="container">
+			<h1 class="mt-5">Método Simplex</h1>
+			<p class="lead">
+				El método Simplex es un procedimiento iterativo que permite resolver un problema de programación lineal, mejorando la solución de la función objetivo en cada paso.
+			</p>				
+		</div>
+	</div>
+	 <div class="tab-pane fade" id="costo" role="tabpanel" aria-labelledby="costo-tab">
+		<div class="container">
+			<h1 class="mt-5">Costo de Oportunidad</h1>
+			<p class="lead">
+				Nos indica cuanto disminuirá el funcional si se fabrica una unidad de ese producto (o aumentará en el caso de minimización).
+			</p>
+			<p>Por supuesto, para aquellos productos que están en la base, el costo de oportunidad es cero, porque ya se estan fabricando.
+              Para aquellos productos que no están en la base, es decir su Xi vale cero, el costo de oportunidad puede ser</p>
+              <p>
+              Cero: lo que indica soluciones alternativas, pues se tiene igual valor de funcional con dicha variable en la base que
+              con la base actual, que no la contiene.</p>
+          	  <p>
+              Negativo: una disminución negativa del funcional es un aumento del mismo, estamos en el caso en el que esa variable es
+              cadidata de entrar en la base. </p>
+              Positivo: si nos obligamos a producir una unidad de ese producto nuestro funcional disminuiría en un valor igual al producto entre la cantidad de unidades fabricadas y dicho costo de oportunidad.</p>				
+		</div>
+	 </div>
+	 	 <div class="tab-pane fade" id="valor" role="tabpanel" aria-labelledby="valor-tab">
+		<div class="container">
+			<h1 class="mt-5">Valor Marginal</h1>
+			<p class="lead">
+				El valor marginal de los recursos indica cuál sería el aumento del funcional si tuvieramos una unidad más de ese recurso disponible.</p>
+
+			<p>Entonces si se tuviera que pagar para obtener una unidad de ese recurso no se pagaría más de esa cifra porque sino se perdería dinero. Así, bien se ve porque el valor marginal de los recursos cuyas variables están en la basees igual a cero. Si están en la base es porque tienen sobrante y no se esta dispuesto a pagar por tener más de algo
+              que en realidad nos sobra.En el caso de los recursos saturados, cuyas variables no figuran en la base, el valor marginal puede ser:</p>
+              <p>Cero: alternativas</p>
+          	  <p>Negativo: candidato a entrar en la base.</p>
+              <p>Positivo: se esta dispuesto a pagar ese valor marginal para obtener el recurso.</p>				
+		</div>
+	 </div>
+	</div>
+
+</body>			
+</html>
