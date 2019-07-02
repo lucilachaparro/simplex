@@ -91,15 +91,15 @@
               for (var i=1; i < ((mostrar.length) -2); i++){
                 if(i<= cantidadVariable){
                 //cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
-                cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Item`+[i]+":"+" "+ mostrar[i] +` </p>`;
+                cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ mostrar[i] +` </p>`;
                 if(mostrar[i] == 0){
-                  cOportrunidad = cOportrunidad + "Este item forma parte de la solución" + "<br>"+"<br>";
+                  cOportrunidad = cOportrunidad + "Este producto forma parte de la solución" + "<br>"+"<br>";
                   cantidadCero += 1 ; 
                 }else{
                   if (ob == "Maximize "){
-                    cOportrunidad = cOportrunidad + "Si se incluye una unidad mas de este item el funcional disminuiria en: " + mostrar[i] + "<br>"+"<br>";
+                    cOportrunidad = cOportrunidad + "Si se incluye este producto en la solución el funcional disminuiria en: " + mostrar[i] + "<br>"+"<br>";
                   }else{
-                    cOportrunidad = cOportrunidad + "Si se incluye una unidad mas de este item el funcional aumentaria en:  " + mostrar[i] + "<br>"+"<br>";
+                    cOportrunidad = cOportrunidad + "Si se incluye este producto en la solución el funcional aumentaria en:  " + mostrar[i] + "<br>"+"<br>";
                   }
                  }
                  
@@ -107,7 +107,7 @@
                 slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+ mostrar[i] + ` </p>`;
 
                 if( mostrar[i] == 0){
-                  slack = slack + "Este item es escaso" + "<br>";
+                  slack = slack + "Este recurso está saturado" + "<br>";
                   cantidadCero += 1 ;
                 }else{
                   if (ob == "Maximize "){
