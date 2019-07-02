@@ -104,12 +104,15 @@
                  }
                  
                 }else{
-                slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+ mostrar[i] + ` </p>`;
 
                 if( mostrar[i] == 0){
-                  slack = slack + "Existe un sobrante de " + sol[i-1] +" de este recurso" + "<br>";
+                  slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+"No tiene valor marginal" + ` </p>`;
+
+                  slack = slack + "Existe un sobrante de " + sol[i-1] +" de este recurso" + "<br>"+"<br>";
                   cantidadCero += 1 ;
                 }else{
+                  slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+ mostrar[i] + ` </p>`;
+
                   if (ob == "Maximize "){
                   slack = slack + "Si se incluye una unidad mas de este recurso el funcional aumentaria en " + mostrar[i] + "<br>"+"<br>";
                   }else{
