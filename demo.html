@@ -84,10 +84,87 @@
 					</div>					
 				</form>
 			</div>
-			
+			<div id="info2" style="width:100%;text-align:center;margin:5px 0 5px 0">
+					Solución:
+				</div>
+				<div id="solutionout" style="text-align:left;background-color:white;width:95%;font-family:monospace;border:thin solid;padding:10px">
+					Una solución óptima (o mensaje) aparecerá aquí.
+				</div>
+				<br></br>
+				<p id="situacion"></p>
+				<center>
+				<div class="col-md-5 mb-3">
+										<div class="card-deck">
+										<div class="card bg-light mb-3" style="max-width: 18rem;">
+												<div class="card-header font-weight-bold"> COSTO DE OPORTUNIDAD </div>
+												<div class="card-body">
+											
+												<div id="costoOportunidad" ></div>
+											</div>
+										</div>
+										
+	
+										<div class="card bg-light mb-3" style="max-width: 18rem;">
+											<div class="card-header font-weight-bold"> VALOR MARGINAL </div>
+											<div class="card-body">
+											
+											<div id="valorSlack"></div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</center>
+				<div id="buttonsdiv" style="width:100%;text-align:center;margin:5px 0 5px 0">
+						<button class="btn btn-primary" onClick="Resolv();">Resolver</button>
+						&#160; &#160;
+						<button class="btn btn-secondary" onClick="showExamples();">Ejemplos</button>
+						&#160; &#160;
+						<button class="btn btn-secondary" onClick="clearAll();">Borrar todo</button>
+					
+					<br>&#160;<br>
+					
+					<div style="display: inline-block; vertical-align:middle; text-align:left">
+						<div class="custom-control custom-radio">
+						<input type="radio" name="displaytabl" id="noTabl" class="custom-control-input"> 
+						<label class="custom-control-label" for="noTabl">Ocultar las tablas. </label>
+						</div>
+						<div class="custom-control custom-radio">
+						<input class="custom-control-input" type="radio" checked="true" name="displaytabl" id="yesTabl"> 
+						<label class="custom-control-label" for="yesTabl">Mostrar las tablas (pasos).</label>
+						</div>
+						<div class="custom-control custom-radio">
+						<input class="custom-control-input" type="radio" name="displaytabl" id="andSolns"> 
+						<label class="custom-control-label" for="andSolns">Mostrar tablas y soluciones intermedias.</label>
+						</div>
+					</div>
+					&#160; &#160; 
+					Modo Tabla: <div style="display: inline-block; vertical-align:middle; text-align:left">
+						<div class="custom-control custom-radio">
+						<input type="radio" checked="true" name="modepicker" id="3" value="decimal" class="custom-control-input">
+						<label class="custom-control-label" for="3">decimal </label>
+						</div>
+						<div class="custom-control custom-radio">
+						<input class="custom-control-input" type="radio" name="modepicker" id="2" value="fraction" class="custom-control-input">
+						<label class="custom-control-label" for="2">fracción</label>
+						</div>
+						<div class="custom-control custom-radio">
+						<input class="custom-control-input" type="radio" name="modepicker" id="1" value="integer" class="custom-control-input">
+						<label class="custom-control-label" for="1">entero</label>
+						</div>
+					</div>
+						&#160; &#160;
+	
+					 Redondeo: <input type="text" id="accuracyDig" size="1" value="6"> dígitos significativos
+						&#160; &#160;
+				</div>
+				<div id="outputarea" style="width: 95%; overflow-x: scroll; background-color:white; font-family:monospace; border: thin solid; padding: 10px; text-align:left">
+					Las tablas del Método Simplex apareceran aquí.
+				</div>
+				<div id="spacer" style="height:20px"></div>
 			</div>
 			<div class="tab-pane fade" id="coef" role="tabpanel" aria-labelledby="coef-tab">
-
+				
 				<center>
 					<div id="input">
 						<form id="formulario">
@@ -110,92 +187,93 @@
 						<form class="form-inline" id="FormFuncion"></form>
 						<p></p>
 						<form class="form-inline" id="FormRestricciones"></form>
-						
-						<p id="restriccion"></p>
 						<p id="funcion"></p>
+						<p id="restriccion"></p>
 						
+						<div id="info2" style="width:100%;text-align:center;margin:5px 0 5px 0">
+								Solución:
+							</div>
+							<div id="solutionoutCoef" style="text-align:left;background-color:white;width:95%;font-family:monospace;border:thin solid;padding:10px">
+								Una solución óptima (o mensaje) aparecerá aquí.
+							</div>
+							<br></br>
+							<p id="situacioN"></p>
+							<center>
+							<div class="col-md-5 mb-3">
+													<div class="card-deck">
+													<div class="card bg-light mb-3" style="max-width: 18rem;">
+															<div class="card-header font-weight-bold"> COSTO DE OPORTUNIDAD </div>
+															<div class="card-body">
+														
+															<div id="costoOportunidadCoef" ></div>
+														</div>
+													</div>
+													
+				
+													<div class="card bg-light mb-3" style="max-width: 18rem;">
+														<div class="card-header font-weight-bold"> VALOR MARGINAL </div>
+														<div class="card-body">
+														
+														<div id="valorSlackCoef"></div>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									</center>
+							<div id="buttonsdiv" style="width:100%;text-align:center;margin:5px 0 5px 0">
+									<button class="btn btn-primary" onClick="Resuelve();">Resolver</button>
+									&#160; &#160;
+									<button class="btn btn-secondary" onClick="showExamples();">Ejemplos</button>
+									&#160; &#160;
+									<button class="btn btn-secondary" onClick="clearAll();">Borrar todo</button>
+								
+								<br>&#160;<br>
+								
+								<div style="display: inline-block; vertical-align:middle; text-align:left">
+									<div class="custom-control custom-radio">
+									<input type="radio" name="displaytabl" id="noTabl" class="custom-control-input"> 
+									<label class="custom-control-label" for="noTabl">Ocultar las tablas. </label>
+									</div>
+									<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" checked="true" name="displaytabl" id="yesTabl"> 
+									<label class="custom-control-label" for="yesTabl">Mostrar las tablas (pasos).</label>
+									</div>
+									<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" name="displaytabl" id="andSolns"> 
+									<label class="custom-control-label" for="andSolns">Mostrar tablas y soluciones intermedias.</label>
+									</div>
+								</div>
+								&#160; &#160; 
+								Modo Tabla: <div style="display: inline-block; vertical-align:middle; text-align:left">
+									<div class="custom-control custom-radio">
+									<input type="radio" checked="true" name="modepicker" id="3" value="decimal" class="custom-control-input">
+									<label class="custom-control-label" for="3">decimal </label>
+									</div>
+									<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" name="modepicker" id="2" value="fraction" class="custom-control-input">
+									<label class="custom-control-label" for="2">fracción</label>
+									</div>
+									<div class="custom-control custom-radio">
+									<input class="custom-control-input" type="radio" name="modepicker" id="1" value="integer" class="custom-control-input">
+									<label class="custom-control-label" for="1">entero</label>
+									</div>
+								</div>
+									&#160; &#160;
+				
+								 Redondeo: <input type="text" id="accuracyDig" size="1" value="6"> dígitos significativos
+									&#160; &#160;
+							</div>
+							<div id="outputareaCoef" style="width: 95%; overflow-x: scroll; background-color:white; font-family:monospace; border: thin solid; padding: 10px; text-align:left">
+								Las tablas del Método Simplex apareceran aquí.
+							</div>
+							<div id="spacer" style="height:20px"></div>
+
 					</div>
 				</center>
 			</div>
 
-			<div id="info2" style="width:100%;text-align:center;margin:5px 0 5px 0">
-				Solución:
-			</div>
-			<div id="solutionout" style="text-align:left;background-color:white;width:95%;font-family:monospace;border:thin solid;padding:10px">
-				Una solución óptima (o mensaje) aparecerá aquí.
-			</div>
-			<br></br>
-			<p id="situacion"></p>
-			<center>
-			<div class="col-md-5 mb-3">
-                  <div class="card-deck">
-                  <div class="card bg-light mb-3" style="max-width: 18rem;">
-                      <div class="card-header font-weight-bold"> COSTO DE OPORTUNIDAD </div>
-                      <div class="card-body">
-                    
-                      <div id="costoOportunidad" ></div>
-                    </div>
-                  </div>
-                  
-
-                  <div class="card bg-light mb-3" style="max-width: 18rem;">
-                    <div class="card-header font-weight-bold"> VALOR MARGINAL </div>
-                    <div class="card-body">
-                    
-                    <div id="valorSlack"></div>
-                  </div>
-                </div>
-                
-              </div>
-						</div>
-					</center>
-			<div id="buttonsdiv" style="width:100%;text-align:center;margin:5px 0 5px 0">
-					<button class="btn btn-primary" onClick="Resolv();">Resolver</button>
-					&#160; &#160;
-					<button class="btn btn-secondary" onClick="showExamples();">Ejemplos</button>
-					&#160; &#160;
-					<button class="btn btn-secondary" onClick="clearAll();">Borrar todo</button>
-				
-				<br>&#160;<br>
-				
-				<div style="display: inline-block; vertical-align:middle; text-align:left">
-					<div class="custom-control custom-radio">
-					<input type="radio" name="displaytabl" id="noTabl" class="custom-control-input"> 
-					<label class="custom-control-label" for="noTabl">Ocultar las tablas. </label>
-					</div>
-					<div class="custom-control custom-radio">
-					<input class="custom-control-input" type="radio" checked="true" name="displaytabl" id="yesTabl"> 
-					<label class="custom-control-label" for="yesTabl">Mostrar las tablas (pasos).</label>
-					</div>
-					<div class="custom-control custom-radio">
-					<input class="custom-control-input" type="radio" name="displaytabl" id="andSolns"> 
-					<label class="custom-control-label" for="andSolns">Mostrar tablas y soluciones intermedias.</label>
-					</div>
-				</div>
-				&#160; &#160; 
-				Modo Tabla: <div style="display: inline-block; vertical-align:middle; text-align:left">
-					<div class="custom-control custom-radio">
-					<input type="radio" checked="true" name="modepicker" id="3" value="decimal" class="custom-control-input">
-					<label class="custom-control-label" for="3">decimal </label>
-					</div>
-					<div class="custom-control custom-radio">
-					<input class="custom-control-input" type="radio" name="modepicker" id="2" value="fraction" class="custom-control-input">
-					<label class="custom-control-label" for="2">fracción</label>
-					</div>
-					<div class="custom-control custom-radio">
-					<input class="custom-control-input" type="radio" name="modepicker" id="1" value="integer" class="custom-control-input">
-					<label class="custom-control-label" for="1">entero</label>
-					</div>
-				</div>
-					&#160; &#160;
-
-				 Redondeo: <input type="text" id="accuracyDig" size="1" value="6"> dígitos significativos
-					&#160; &#160;
-			</div>
-			<div id="outputarea" style="width: 95%; overflow-x: scroll; background-color:white; font-family:monospace; border: thin solid; padding: 10px; text-align:left">
-				Las tablas del Método Simplex apareceran aquí.
-			</div>
-			<div id="spacer" style="height:20px"></div>
+			
 		</center>
 	</div>
 	    

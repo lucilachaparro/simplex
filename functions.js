@@ -19,9 +19,17 @@
     function showOutput( str ) {
       document.getElementById("outputarea").innerHTML = str;
     }
+
+    function showOutputCoef( str ) {
+      document.getElementById("outputareaCoef").innerHTML = str;
+    }
     
     function showSolution( str ) {
       document.getElementById("solutionout").innerHTML = str;
+    }
+
+    function showSolutionCoef( str ) {
+      document.getElementById("solutionoutCoef").innerHTML = str;
     }
 
     function adjustAccuracy() {
@@ -48,10 +56,11 @@
     }
 
         function Resolv() {
-              var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
+          
               var f = document.getElementById("funcion").value; //variable f toma el valor del cuadro de texto funcion
+              var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
               var r = document.getElementById("restriccion").value; //variable r toma el valor del cuadro de texto restriccion
-
+          
               var ArrayFormateado;
               const subject = " subject to ";
 
@@ -61,7 +70,7 @@
               }else{
                 ob = "minimize ";
               }
-
+            
             ArrayFormateado = `${ob}${f}${subject}${r}`; //arrayformateado guarda los datos del problema, separados
             console.log({ArrayFormateado});
             clearOutput();
@@ -71,10 +80,49 @@
                     Q.mode=lp_demo_mode;
                     Q.sigDigits=lp_demo_accuracy;
                     try{Q.solve()} //acá llama a solve para el problema
-                    finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() ); showFilaZ(filaZ, Q.formatUnknowns(), ob, Q.status, Q.constraints, Q.formatLastSolution(true))} //muestra la solución como string, también los pasos intermedios
+                    finally{showOutput( lp_trace_string );showSolution( Q.solutionToString() );showFilaZ(filaZ, Q.formatUnknowns(), ob, Q.status, Q.constraints, Q.formatLastSolution(true))} //muestra la solución como string, también los pasos intermedios
             }
 
+        function Resuelve(){
+          mostrar();
+          var cantidadVariable = document.getElementById("cantVariable").value;
+          var TxtFuncion = "z = ";
+          var Txt ="";
+          //este FOR toma todo lo del Z//
+          for (var j = 1; j <= (cantidadVariable) ; j++) {//filas
+            var Zi = document.getElementById(`Z${j}`).value;
+            if (Zi != ""){
+            TxtFuncion += Zi + 'X'+ [j] +' + ';
+            }
+          }
+            TxtFuncion += Txt;
+              TxtFuncion = TxtFuncion.slice(0,-2);
+              var f = TxtFuncion; //variable f toma el valor del cuadro de texto funcion
+              var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
+              var r = document.getElementById("restriccion").value; //variable r toma el valor del cuadro de texto restriccion
+          
+              var ArrayFormateado;
+              const subject = " subject to ";
+
+
+              if (ob == "Maximizar"){
+                ob = "Maximize ";
+              }else{
+                ob = "minimize ";
+              }
             
+            ArrayFormateado = `${ob}${f}${subject}${r}`; //arrayformateado guarda los datos del problema, separados
+            console.log({ArrayFormateado});
+            clearOutput();
+                    adjustAccuracy();setMode();setShowTabl();
+                    var Q = new lpProblem( ArrayFormateado); //crea un objeto lpProblem a partir de arrayformateado
+                    lp_verboseLevel=lp_demo_verboseLevel;
+                    Q.mode=lp_demo_mode;
+                    Q.sigDigits=lp_demo_accuracy;
+                    try{Q.solve()} //acá llama a solve para el problema
+                    finally{showOutputCoef( lp_trace_string );showSolutionCoef(Q.solutionToString());showFilaZCoef(filaZ, Q.formatUnknowns(), ob, Q.status, Q.constraints, Q.formatLastSolution(true))} //muestra la solución como string, también los pasos intermedios
+            }
+          
 
 	// FILA DEL Z (Muestra los costo de oportunidad y la slack)
             function showFilaZ( filafinalZ, arrayVariables, ob, str, rest, sol) {
@@ -130,6 +178,60 @@
             }
           }
 
+          //Para modo coeficiente
+          function showFilaZCoef( filafinalZ, arrayVariables, ob, str, rest, sol) {
+            var posicion = filafinalZ.length; //tamaño
+            var mostrar = filafinalZ[posicion-1]; // me devuelve el ultima fila
+            var cOportrunidad = "";
+            var slack = "";
+            var cantidadVariable = arrayVariables.length; // cuando tengamos el id de la cantidad de variables se le puede colocar aca
+            var j = 1;
+            var cantidadRestriccion = rest.length;
+            var cantidadCero = 0;
+            console.log(sol);
+            if(str == 4){
+            for (var i=1; i < ((mostrar.length) -2); i++){
+              if(i<= cantidadVariable){
+              //cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
+              cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ mostrar[i] +` </p>`;
+              if(mostrar[i] == 0){
+                cOportrunidad = cOportrunidad + "Este producto forma parte de la solución" + "<br>"+"<br>";
+                cantidadCero += 1 ; 
+              }else{
+                if (ob == "Maximize "){
+                  cOportrunidad = cOportrunidad + "Si se incluye este producto en la solución el funcional disminuiria en: " + mostrar[i] + "<br>"+"<br>";
+                }else{
+                  cOportrunidad = cOportrunidad + "Si se incluye este producto en la solución el funcional aumentaria en:  " + mostrar[i] + "<br>"+"<br>";
+                }
+               }
+               
+              }else{
+
+              if( mostrar[i] == 0){
+                slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+"No tiene valor marginal" + ` </p>`;
+
+                slack = slack + "Existe un sobrante de " + sol[i-1] +" de este recurso" + "<br>"+"<br>";
+                cantidadCero += 1 ;
+              }else{
+                slack = slack + `<p class="font-weight-bold">Recurso`+ j +":"+" "+ mostrar[i] + ` </p>`;
+
+                if (ob == "Maximize "){
+                slack = slack + "Si se incluye una unidad mas de este recurso el funcional aumentaria en " + mostrar[i] + "<br>"+"<br>";
+                }else{
+                  slack = slack + "Si se incluye una unidad mas de este recurso el funcional disminuiria en " +mostrar[i] + "<br>"+"<br>";
+                }
+              }
+              j += 1;
+            }
+          }
+            document.getElementById("costoOportunidadCoef").innerHTML = cOportrunidad;
+            document.getElementById("valorSlackCoef").innerHTML = slack;
+          }
+          if (cantidadCero > cantidadRestriccion){
+            document.getElementById("situacioN").innerHTML = "El problema tiene Multiples soluciones";
+          }
+        }
+
   function CrearRelleno(){
     var cantidadVariable = document.getElementById("cantVariable").value;
     var cantidadRestricciones= document.getElementById("cantRestriccion").value;
@@ -184,12 +286,14 @@
     var cantidadVariable = document.getElementById("cantVariable").value;
     var cantidadRestricciones= document.getElementById("cantRestriccion").value;
     var TxtRestricciones = "";
-    var TxtFuncion = "";
+   
     //este FOR toma todo lo de las restricciones//
     for (var i = 1; i <= (cantidadRestricciones) ; i++) {//filas
       for (var j = 1; j <= (cantidadVariable) ; j++) {//colmunas
         var coeficiente = document.getElementById(`C${i}${j}`).value;
-        TxtRestricciones += coeficiente + 'X'+ [j] +' + ';
+        if (coeficiente != ""){
+          TxtRestricciones += coeficiente + 'X'+ [j] +' + ';
+        }
       }
       TxtRestricciones = TxtRestricciones.slice(0,-2);
       var opcion = document.getElementById(`opcion${i}`).value;
@@ -204,15 +308,15 @@
         opcion = '= '
         break;
       }
+      
       var valor = document.getElementById(`B${i}`).value;
-      TxtRestricciones += opcion + valor + "<br>";
+      TxtRestricciones += opcion + valor;
+      TxtRestricciones += "\n";
     }
-    //este FOR toma todo lo del Z//
-    for (var j = 1; j <= (cantidadVariable) ; j++) {//filas
-      var Zi = document.getElementById(`Z${j}`).value;
-      TxtFuncion += Zi + 'X'+ [j] +' + ';
-    }
-    TxtFuncion = TxtFuncion.slice(0,-2);
-    document.getElementById("funcion").innerHTML = TxtFuncion;
+    
+    TxtRestricciones = TxtRestricciones.slice(0,-1);
+   
     document.getElementById("restriccion").innerHTML = TxtRestricciones;
+  
+    console.log(TxtRestricciones);
   }
