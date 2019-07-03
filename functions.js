@@ -84,7 +84,7 @@
             }
 
         function Resuelve(){
-          mostrar();
+          
           var cantidadVariable = document.getElementById("cantVariable").value;
           var TxtFuncion = "z = ";
           var Txt ="";
@@ -99,7 +99,7 @@
               TxtFuncion = TxtFuncion.slice(0,-2);
               var f = TxtFuncion; //variable f toma el valor del cuadro de texto funcion
               var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
-              var r = document.getElementById("restriccion").value; //variable r toma el valor del cuadro de texto restriccion
+              var r = mostrar(); //variable r toma el valor del cuadro de texto restriccion
           
               var ArrayFormateado;
               const subject = " subject to ";
@@ -305,8 +305,7 @@
     }
     
     TxtRestricciones = TxtRestricciones.slice(0,-1);
-   
-    document.getElementById("restriccion").innerHTML = TxtRestricciones;
   
     console.log(TxtRestricciones);
+    return TxtRestricciones;
   }
