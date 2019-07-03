@@ -135,10 +135,11 @@
     var cantidadRestricciones= document.getElementById("cantRestriccion").value;
     var DivRestricciones = "";
     var Divfuncion = "";
+    
     Divfuncion += `<center>
-        <div class="col-md-6 mb-6">
-          <label for="objetivo">¿Cuál es el objetivo de la función?</label>
-          <br>
+        <p for="objetivo">¿Cuál es el objetivo de la función?</p>
+          <div class="col-md-3 mb-3">
+          
             <select class="custom-select d-block w-100" id="objetivo">
             <option value ="Maximizar">Maximizar</option>
             <option value="Minimizar">Minimizar</option>
@@ -153,7 +154,7 @@
     for (var i = 1; i <= (cantidadRestricciones) ; i++) {//filas
       DivRestricciones += ' <div  class="form-group row">';
       for (var j = 1; j <= (cantidadVariable) ; j++) {//colmunas
-        DivRestricciones += `<input type="text" id='C${i}${j}' class="form-control2" >
+        DivRestricciones += `<input type="text" id='C${i}${j}' class="form-control" size="5">
                  X`+[j]+'     + '; //formateo de texto se llama
       }
       DivRestricciones = DivRestricciones.slice(0,-2); //dame todo el string menos el ultimo caracter
@@ -162,17 +163,18 @@
             <option value="mayor_igual">≥</option>
             <option value="igual">=</option>
             </select>
-            <input type="text" id='B${i}' class="form-control2" >`;
+            <input type="text" id='B${i}' class="form-control" size="5" >`;
       DivRestricciones += '</div>';
     }
     for (var j = 1; j <= (cantidadVariable) ; j++) {//columnas
-        Divfuncion += `<input type="text" id='Z${j}' class="form-control" >  
+        Divfuncion += `<input type="text" id='Z${j}' class="form-control" size="5">  
                       X`+[j]+'   + ';
       }
     Divfuncion = Divfuncion.slice(0,-2);
-    Divfuncion += `</div>
+    
+    /*Divfuncion += `</div>
     <p></p>
-    <button type="button" class="btn btn-outline-info"  onClick="mostrar()">Continuar</button>`;
+    <button type="button" class="btn btn-outline-info"  onClick="mostrar()">Continuar</button>`;*/
     document.getElementById("FormRestricciones").innerHTML = DivRestricciones;
     document.getElementById("FormFuncion").innerHTML = Divfuncion;
     

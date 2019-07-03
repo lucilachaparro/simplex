@@ -50,8 +50,6 @@
 </ul>
 
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
 		<div id="info1" class="py-5 text-center">
 			  <div id="info1" class="text-center">
     				<div class= "col-md-12"> 
@@ -63,6 +61,8 @@
 			<p class= "lead">
 				(Presione "Ejemplos" para pasar por algunos problemas ya configurados). </p>
 		</div>
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
 		<center>
 			<div id="input">
 				<form id="formulario">
@@ -85,8 +85,39 @@
 				</form>
 			</div>
 			
-
 			</div>
+			<div class="tab-pane fade" id="coef" role="tabpanel" aria-labelledby="coef-tab">
+
+				<center>
+					<div id="input">
+						<form id="formulario">
+							<p for="cantVariable">¿Cuántas variables de decisión tiene el problema?</p>
+							<div class="col-sm-1">
+								<input class="form-control" id="cantVariable" type="text" size="5">
+							</div> 
+							<br> 
+							<p for="cantRestriccion">¿Cuántas restricciones?</p>
+							<div class="col-sm-1">
+							 <input class="form-control" id="cantRestriccion" type="text" size="5">
+							</div>  
+							<br>
+						
+							<button type="button" style color:"#115206" class="btn btn-outline-info"  onClick="CrearRelleno();">  Aceptar</button>      
+							<p></p>
+							<br>        
+						</form>
+						
+						<form class="form-inline" id="FormFuncion"></form>
+						<p></p>
+						<form class="form-inline" id="FormRestricciones"></form>
+						
+						<p id="restriccion"></p>
+						<p id="funcion"></p>
+						
+					</div>
+				</center>
+			</div>
+
 			<div id="info2" style="width:100%;text-align:center;margin:5px 0 5px 0">
 				Solución:
 			</div>
@@ -95,7 +126,7 @@
 			</div>
 			<br></br>
 			<p id="situacion"></p>
-			
+			<center>
 			<div class="col-md-5 mb-3">
                   <div class="card-deck">
                   <div class="card bg-light mb-3" style="max-width: 18rem;">
@@ -116,7 +147,8 @@
                 </div>
                 
               </div>
-            </div>
+						</div>
+					</center>
 			<div id="buttonsdiv" style="width:100%;text-align:center;margin:5px 0 5px 0">
 					<button class="btn btn-primary" onClick="Resolv();">Resolver</button>
 					&#160; &#160;
@@ -166,37 +198,7 @@
 			<div id="spacer" style="height:20px"></div>
 		</center>
 	</div>
-	<div class="tab-pane fade" id="coef" role="tabpanel" aria-labelledby="coef-tab">
-		  <div id="info1" class="text-center">
-    <div class= "col-md-12"> 
-      <img src = "./img/img.jpg">
-    </div> 
-  </div>
-    <center>
-      <div id="input">
-        <form id="formulario">
-          <div class="col-md-12 mb-12">
-            <label for="cantVariable">¿Cuántas variables de decisión tiene el problema? </label> 
-            <input class="form-control" id="cantVariable" type="text" size="20">
-          </div> 
-          <br> 
-          <div class="col-md-6 mb-6">
-            <label for="cantRestriccion">¿Cuántas restricciones? </label> <input class="form-control" id="cantRestriccion" type="text" size="20">
-          </div>  
-          <br>
-        
-            <button type="button" style color:"#115206" class="btn btn-outline-info"  onClick="CrearRelleno();">  Aceptar</button>      
-            <p></p>
-          <br>        
-        </form>
-        <form class="form-inline" id="FormRestricciones"></form>
-        <p></p>
-        <p id="restriccion"></p>
-        <p id="funcion"></p>
-        <p></p>
-        <form class="form-inline" id="FormFuncion"></form>
-      </div>
-    </center>
+	    
 </div>
 	</div>	
 </div>
