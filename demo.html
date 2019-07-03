@@ -67,7 +67,7 @@
 			<div id="input">
 				<form id="formulario">
 					<div class="col-md-3 mb-3">
-						¿Qué desea hacer?
+						¿Cuál es el objetivo de la función?
 						<select class="custom-select d-block w-100" id="objetivo">
 						<option	value ="Maximizar">Maximizar</option>
 						<option value="Minimizar">Minimizar</option>
@@ -167,7 +167,15 @@
 				
 				<center>
 					<div id="input">
-						<form id="formulario">
+						<form id="formulario">		
+        			<p for="objetivo">¿Cuál es el objetivo de la función?</p>
+          			<div class="col-md-3 mb-3">
+          				<select class="custom-select d-block w-100" id="objetivo">
+            				<option value ="Maximizar">Maximizar</option>
+           					<option value="Minimizar">Minimizar</option>
+           				 </select>
+          			</div>
+          		<br>
 							<p for="cantVariable">¿Cuántas variables de decisión tiene el problema?</p>
 							<div class="col-sm-1">
 								<input class="form-control" id="cantVariable" type="text" size="5">

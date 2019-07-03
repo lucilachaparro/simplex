@@ -238,17 +238,7 @@
     var DivRestricciones = "";
     var Divfuncion = "";
     
-    Divfuncion += `<center>
-        <p for="objetivo">¿Cuál es el objetivo de la función?</p>
-          <div class="col-md-3 mb-3">
-          
-            <select class="custom-select d-block w-100" id="objetivo">
-            <option value ="Maximizar">Maximizar</option>
-            <option value="Minimizar">Minimizar</option>
-            </select>
-          </div>
-          </center>
-          <br>
+    Divfuncion += `
           <div class="form-group row">
             <label for="funcion" style="
               padding-right: 10px;
