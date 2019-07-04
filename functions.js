@@ -26,6 +26,8 @@
             document.getElementById("restriccion").value="";
       document.getElementById("solutionout").innerHTML="Una solución óptima (o mensaje) aparecerá aquí.";
       document.getElementById("outputarea").innerHTML="Las tablas del Método Simplex apareceran aquí.";
+      document.getElementById("costoOportunidad").innerHTML = "";
+      document.getElementById("valorSlack").innerHTML = "";
     }
 
     function clearAllCoef() {
@@ -40,6 +42,10 @@
         }
           document.getElementById(`B${i}`).value = "";
       }
+      document.getElementById("solutionoutCoef").innerHTML="Una solución óptima (o mensaje) aparecerá aquí.";
+      document.getElementById("outputareaCoef").innerHTML="Las tablas del Método Simplex apareceran aquí.";
+      document.getElementById("costoOportunidadCoef").innerHTML = "";
+      document.getElementById("valorSlackCoef").innerHTML = "";
     }
 
     function clearOutput() {
