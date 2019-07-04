@@ -128,13 +128,30 @@
           var Txt ="";
           //este FOR toma todo lo del Z//
           for (var j = 1; j <= (cantidadVariable) ; j++) {//filas
+            var verificacion = 0;
             var Zi = document.getElementById(`Z${j}`).value;
             if (Zi != ""){
-            TxtFuncion += Zi + 'X'+ [j] +' + ';
+              if((Zi < 0) && (j == 1)){
+                TxtFuncion += Zi + 'X'+ [j];
+              }else{
+                if(Zi < 0){
+                  Zi = (Zi * -1);
+                  TxtFuncion += ' - ' + Zi + 'X'+ [j];
+                  verificacion = 1;
+                }
+                if((Zi > 0) && (j == 1)){
+                  TxtFuncion += Zi + 'X'+ [j];
+    
+                }else{
+                  if(verificacion == 0){
+                  TxtFuncion += ' + ' + Zi + 'X'+ [j];
+                  }
+                }
+
+              }
             }
           }
             TxtFuncion += Txt;
-              TxtFuncion = TxtFuncion.slice(0,-2);
               var f = TxtFuncion; //variable f toma el valor del cuadro de texto funcion
               var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
               var r = mostrar(); //variable r toma el valor del cuadro de texto restriccion
@@ -176,7 +193,6 @@
               if(str == 4){
               for (var i=1; i < ((mostrar.length) -2); i++){
                 if(i<= cantidadVariable){
-                //cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
                 if(mostrar[i] == 0){
                   cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ "No tiene costo de oportunidad"+` </p>`;
                   cOportrunidad = cOportrunidad + "Este producto forma parte de la solución" + "<br>"+"<br>";
@@ -232,7 +248,6 @@
             if(str == 4){
             for (var i=1; i < ((mostrar.length) -2); i++){
               if(i<= cantidadVariable){
-              //cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
               if(mostrar[i] == 0){
                 cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ "No tiene costo de oportunidad"+` </p>`;
                 cOportrunidad = cOportrunidad + "Este producto forma parte de la solución" + "<br>"+"<br>";
@@ -313,6 +328,7 @@
     
   }
 
+  //Formateo las restricciones
    function mostrar() {
     var cantidadVariable = document.getElementById("cantVariable").value;
     var cantidadRestricciones= document.getElementById("cantRestriccion").value;
@@ -321,22 +337,42 @@
     //este FOR toma todo lo de las restricciones//
     for (var i = 1; i <= (cantidadRestricciones) ; i++) {//filas
       for (var j = 1; j <= (cantidadVariable) ; j++) {//colmunas
+        var verificacion = 0;
         var coeficiente = document.getElementById(`C${i}${j}`).value;
         if (coeficiente != ""){
-          TxtRestricciones += coeficiente + 'X'+ [j] +' + ';
+          if((coeficiente < 0) && (j == 1)){
+            coeficiente = (coeficiente*-1);
+            TxtRestricciones += '-' + coeficiente + 'X'+ [j];
+
+          }else{
+            if(coeficiente < 0){
+              coeficiente = (coeficiente*-1);
+              TxtRestricciones += ' - ' + coeficiente + 'X'+ [j];
+              verificacion = 1;
+            }
+            if((coeficiente > 0) && (j == 1)){
+              TxtRestricciones += coeficiente + 'X'+ [j];
+
+            }else{
+              if(verificacion == 0){
+              TxtRestricciones += ' + ' + coeficiente + 'X'+ [j];
+              }
+            }
+
+          }
         }
+        
       }
-      TxtRestricciones = TxtRestricciones.slice(0,-2);
       var opcion = document.getElementById(`opcion${i}`).value;
       switch (opcion){
         case 'menor_igual':
-        opcion = '≤ ';
+        opcion = ' <= ';
         break;
         case 'mayor_igual':
-        opcion = '≥ ';
+        opcion = ' >= ';
         break;
         case 'igual':
-        opcion = '= '
+        opcion = ' = '
         break;
       }
       
@@ -347,6 +383,6 @@
     
     TxtRestricciones = TxtRestricciones.slice(0,-1);
   
-    console.log(TxtRestricciones);
+    //console.log(TxtRestricciones);
     return TxtRestricciones;
   }
