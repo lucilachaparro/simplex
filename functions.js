@@ -2,7 +2,23 @@
       document.getElementById("funcion").value=exampleObj[lp_demo_exampleNumber%exampleObj.length];
       document.getElementById("restriccion").value=exampleRest[lp_demo_exampleNumber%exampleRest.length];
       lp_demo_exampleNumber++;
+    }
 
+    function showExamplesCoef() {
+      document.getElementById("cantVariable").value = "2";
+      document.getElementById("cantRestriccion").value = "3";
+      CrearRelleno();
+      document.getElementById("Z1").value = "5";
+      document.getElementById("Z2").value = "6";
+      document.getElementById("C11").value = "1";
+      document.getElementById("C12").value = "2";
+      document.getElementById("B1").value = "200";
+      document.getElementById("C21").value = "3";
+      document.getElementById("C22").value = "1";
+      document.getElementById("B2").value = "360";
+      document.getElementById("C31").value = "2";
+      document.getElementById("C32").value = "5";
+      document.getElementById("B3").value = "600";
     }
 
     function clearAll() {
@@ -10,6 +26,20 @@
             document.getElementById("restriccion").value="";
       document.getElementById("solutionout").innerHTML="Una solución óptima (o mensaje) aparecerá aquí.";
       document.getElementById("outputarea").innerHTML="Las tablas del Método Simplex apareceran aquí.";
+    }
+
+    function clearAllCoef() {
+      var cantidadVariable = document.getElementById("cantVariable").value;
+      var cantidadRestricciones= document.getElementById("cantRestriccion").value;
+      for (var j = 1; j <= (cantidadVariable) ; j++) {
+            document.getElementById(`Z${j}`).value = "";
+            }
+      for (var i = 1; i <= (cantidadRestricciones) ; i++) {//filas
+        for (var j = 1; j <= (cantidadVariable) ; j++) {//columnas
+          document.getElementById(`C${i}${j}`).value = "";
+        }
+          document.getElementById(`B${i}`).value = "";
+      }
     }
 
     function clearOutput() {

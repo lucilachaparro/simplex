@@ -40,7 +40,15 @@
 		<div class="container">
 			<h1 class="mt-5">Método Simplex</h1>
 			<p class="lead">
-				El método Simplex es un procedimiento iterativo que permite resolver un problema de programación lineal, mejorando la solución de la función objetivo en cada paso.
+				El método simplex es un procedimiento algebraico en el que cada iteración contiene la solución de un sistema de ecuaciones para obtener una nueva solución a la que se le aplica la prueba de optimalidad. No obstante, también tiene una interpretación geométrica muy útil.
+				<br>
+				Es un algoritmo del tipo iterativo en el cual se repite un procedimiento sistemático hasta obtener el resultado deseado.
+				<br>
+				<br>
+				El método simplex resuelve la Programación Lineal en iteraciones. Cada iteración desplaza la solución a un nuevo punto esquina que tiene potencial de mejorar el valor de la función objetivo. El proceso termina cuando ya no se pueden obtener mejoras.
+				<br>
+				Este método implica cálculos tediosos y voluminosos, lo que hace que la computadora sea una herramienta esencial para resolver los problemas de PL.
+				<br>
 			</p>				
 		</div>
 	</div>
@@ -49,29 +57,39 @@
 			<h1 class="mt-5">Costo de Oportunidad</h1>
 			<p class="lead">
 				Nos indica cuanto disminuirá el funcional si se fabrica una unidad de ese producto (o aumentará en el caso de minimización).
-			</p>
-			<p>Por supuesto, para aquellos productos que están en la base, el costo de oportunidad es cero, porque ya se estan fabricando.
-              Para aquellos productos que no están en la base, es decir su Xi vale cero, el costo de oportunidad puede ser</p>
-              <p>
-              Cero: lo que indica soluciones alternativas, pues se tiene igual valor de funcional con dicha variable en la base que
-              con la base actual, que no la contiene.</p>
-          	  <p>
-              Negativo: una disminución negativa del funcional es un aumento del mismo, estamos en el caso en el que esa variable es
-              cadidata de entrar en la base. </p>
-              Positivo: si nos obligamos a producir una unidad de ese producto nuestro funcional disminuiría en un valor igual al producto entre la cantidad de unidades fabricadas y dicho costo de oportunidad.</p>				
+				<br>
+				Por supuesto, para aquellos productos que están en la base, el costo de oportunidad es cero, porque ya se estan fabricando.
+              	Para aquellos productos que no están en la base, es decir su Xi vale cero, el costo de oportunidad puede ser
+				<br>            
+				<br>  
+	            <strong>Cero:</strong> lo que indica soluciones alternativas, pues se tiene igual valor de funcional con dicha variable en la base que
+              con la base actual, que no la contiene.
+              <br>
+              <br>
+              <strong>Negativo:</strong> una disminución negativa del funcional es un aumento del mismo, estamos en el caso en el que esa variable es
+              cadidata de entrar en la base. 
+              <br>
+              <br>
+              <strong>Positivo:</strong> si nos obligamos a producir una unidad de ese producto nuestro funcional disminuiría en un valor igual al producto entre la cantidad de unidades fabricadas y dicho costo de oportunidad.	</p>					
 		</div>
 	 </div>
 	 	 <div class="tab-pane fade" id="valor" role="tabpanel" aria-labelledby="valor-tab">
 		<div class="container">
 			<h1 class="mt-5">Valor Marginal</h1>
 			<p class="lead">
-				El valor marginal de los recursos indica cuál sería el aumento del funcional si tuvieramos una unidad más de ese recurso disponible.</p>
-
-			<p>Entonces si se tuviera que pagar para obtener una unidad de ese recurso no se pagaría más de esa cifra porque sino se perdería dinero. Así, bien se ve porque el valor marginal de los recursos cuyas variables están en la basees igual a cero. Si están en la base es porque tienen sobrante y no se esta dispuesto a pagar por tener más de algo
-              que en realidad nos sobra.En el caso de los recursos saturados, cuyas variables no figuran en la base, el valor marginal puede ser:</p>
-              <p>Cero: alternativas</p>
-          	  <p>Negativo: candidato a entrar en la base.</p>
-              <p>Positivo: se esta dispuesto a pagar ese valor marginal para obtener el recurso.</p>				
+			El valor marginal de los recursos indica cuál sería el aumento del funcional si tuvieramos una unidad más de ese recurso disponible.
+			<br>
+			Entonces si se tuviera que pagar para obtener una unidad de ese recurso no se pagaría más de esa cifra porque sino se perdería dinero. Así, bien se ve porque el valor marginal de los recursos cuyas variables están en la basees igual a cero. Si están en la base es porque tienen sobrante y no se esta dispuesto a pagar por tener más de algo
+            que en realidad nos sobra.En el caso de los recursos saturados, cuyas variables no figuran en la base, el valor marginal puede ser:
+            <br>
+            <br>
+            <strong>Cero:</strong> Alternativas
+          	<br>
+          	<br>
+          	<strong>Negativo:</strong> Candidato a entrar en la base.
+            <br>
+            <br>
+            <strong>Positivo:</strong> Se esta dispuesto a pagar ese valor marginal para obtener el recurso.</p>			
 		</div>
 	 </div>
 	</div>
