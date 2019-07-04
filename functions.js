@@ -28,6 +28,7 @@
       document.getElementById("outputarea").innerHTML="Las tablas del Método Simplex apareceran aquí.";
       document.getElementById("costoOportunidad").innerHTML = "";
       document.getElementById("valorSlack").innerHTML = "";
+      document.getElementById("situacion").innerHTML="";
     }
 
     function clearAllCoef() {
@@ -46,6 +47,7 @@
       document.getElementById("outputareaCoef").innerHTML="Las tablas del Método Simplex apareceran aquí.";
       document.getElementById("costoOportunidadCoef").innerHTML = "";
       document.getElementById("valorSlackCoef").innerHTML = "";
+      document.getElementById("situacioN").innerHTML="";
     }
 
     function clearOutput() {
@@ -92,7 +94,7 @@
     }
 
         function Resolv() {
-          
+              document.getElementById("situacion").innerHTML ="";
               var f = document.getElementById("funcion").value; //variable f toma el valor del cuadro de texto funcion
               var ob = document.getElementById("objetivo").value; //variable ob toma el valor del cuadro de texto objetivo
               var r = document.getElementById("restriccion").value; //variable r toma el valor del cuadro de texto restriccion
@@ -120,7 +122,7 @@
             }
 
         function Resuelve(){
-          
+          document.getElementById("situacioN").innerHTML ="";
           var cantidadVariable = document.getElementById("cantVariable").value;
           var TxtFuncion = "z = ";
           var Txt ="";
@@ -175,11 +177,13 @@
               for (var i=1; i < ((mostrar.length) -2); i++){
                 if(i<= cantidadVariable){
                 //cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
-                cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ mostrar[i] +` </p>`;
                 if(mostrar[i] == 0){
+                  cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ "No tiene costo de oportunidad"+` </p>`;
                   cOportrunidad = cOportrunidad + "Este producto forma parte de la solución" + "<br>"+"<br>";
                   cantidadCero += 1 ; 
                 }else{
+                  cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ mostrar[i] +` </p>`;
+
                   if (ob == "Maximize "){
                     cOportrunidad = cOportrunidad + "Si se incluye este producto en la solución el funcional disminuiria en: " + mostrar[i] + "<br>"+"<br>";
                   }else{
@@ -229,11 +233,12 @@
             for (var i=1; i < ((mostrar.length) -2); i++){
               if(i<= cantidadVariable){
               //cOportrunidad = cOportrunidad + "Producto "+[i]+":"+" "+ mostrar[i] + "<br>";
-              cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ mostrar[i] +` </p>`;
               if(mostrar[i] == 0){
+                cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ "No tiene costo de oportunidad"+` </p>`;
                 cOportrunidad = cOportrunidad + "Este producto forma parte de la solución" + "<br>"+"<br>";
                 cantidadCero += 1 ; 
               }else{
+                cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ mostrar[i] +` </p>`;
                 if (ob == "Maximize "){
                   cOportrunidad = cOportrunidad + "Si se incluye este producto en la solución el funcional disminuiria en: " + mostrar[i] + "<br>"+"<br>";
                 }else{
