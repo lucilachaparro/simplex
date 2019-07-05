@@ -73,14 +73,30 @@
     function adjustAccuracy() {
       var inAcc=parseInt(document.getElementById("accuracyDig").value);
       if ( (inAcc<=0)||(inAcc>13)||(isNaN(inAcc)) ) {
-        alert("Must be in integer in the range 0-13")
+        alert("Dígitos significativos debe ser un entero entre 0-13")
+        document.getElementById("accuracyDig").value=6;
+      }
+      else lp_demo_accuracy = inAcc;
+    }
+
+    function adjustAccuracyCoef() {
+      var inAcc=parseInt(document.getElementById("accuracyDigCoef").value);
+      if ( (inAcc<=0)||(inAcc>13)||(isNaN(inAcc)) ) {
+        alert("Dígitos significativos debe ser un entero entre 0-13")
         document.getElementById("accuracyDig").value=6;
       }
       else lp_demo_accuracy = inAcc;
     }
 
     function setMode() {
-      lp_demo_mode=parseInt(document.querySelector('input[name="modepicker"]:checked').id); // ids are conveniently set to equal the mode
+      var theId = document.querySelector('input[name="modepicker"]:checked').id;
+      switch ( theId ) {
+        case "1coef": lp_demo_mode=1; break;
+        case "2coef": lp_demo_mode=2; break;
+        case "3coef": lp_demo_mode=3; break;
+        default: lp_demo_mode=parseInt(document.querySelector('input[name="modepicker"]:checked').id); // ids are conveniently set to equal the mode
+      }
+      
     }
 
     function setShowTabl() {
@@ -88,6 +104,8 @@
       switch ( theId ) {
         case "yesTabl":   lp_demo_verboseLevel = lp_verbosity_tableaus; break;
         case "andSolns":  lp_demo_verboseLevel = lp_verbosity_solutions; break;
+        case "yesTablCoef":   lp_demo_verboseLevel = lp_verbosity_tableaus; break;
+        case "andSolnsCoef":  lp_demo_verboseLevel = lp_verbosity_solutions; break;
         default:      lp_demo_verboseLevel = lp_verbosity_none; break;
       }
 //      lp_demo_verboseLevel = (theId=="yesTabl") ? lp_verbosity_tableaus : lp_verbosity_none;
