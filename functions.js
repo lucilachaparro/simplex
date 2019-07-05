@@ -110,7 +110,7 @@
               }
             
             ArrayFormateado = `${ob}${f}${subject}${r}`; //arrayformateado guarda los datos del problema, separados
-            console.log({ArrayFormateado});
+            //console.log({ArrayFormateado});
             clearOutput();
                     adjustAccuracy();setMode();setShowTabl();
                     var Q = new lpProblem( ArrayFormateado); //crea un objeto lpProblem a partir de arrayformateado
@@ -189,8 +189,9 @@
               var j = 1;
               var cantidadRestriccion = rest.length;
               var cantidadCero = 0;
-              console.log(sol);
+              //console.log(sol);
               if(str == 4){
+                var control = 0;
               for (var i=1; i < ((mostrar.length) -2); i++){
                 if(i<= cantidadVariable){
                 if(mostrar[i] == 0){
@@ -229,9 +230,19 @@
               document.getElementById("costoOportunidad").innerHTML = cOportrunidad;
               document.getElementById("valorSlack").innerHTML = slack;
             }
+            for( var i=0; i<=sol.length; i++){
+              if(sol[i] == 0){
+                control = control + 1;
+              }
+            }
             if (cantidadCero > cantidadRestriccion){
               document.getElementById("situacion").innerHTML = "El problema tiene Multiples soluciones";
-            }
+            }else{
+              if (control > cantidadVariable){
+                document.getElementById("situacion").innerHTML = "El problema tiene una Solución degenerada";
+                
+                }
+            }            
           }
 
           //Para modo coeficiente
@@ -246,11 +257,13 @@
             var cantidadCero = 0;
             console.log(sol);
             if(str == 4){
+              var control = 0;
             for (var i=1; i < ((mostrar.length) -2); i++){
               if(i<= cantidadVariable){
               if(mostrar[i] == 0){
                 cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ "No tiene costo de oportunidad"+` </p>`;
                 cOportrunidad = cOportrunidad + "Este producto forma parte de la solución" + "<br>"+"<br>";
+                
                 cantidadCero += 1 ; 
               }else{
                 cOportrunidad = cOportrunidad + `<p class="font-weight-bold">Producto`+[i]+":"+" "+ mostrar[i] +` </p>`;
@@ -283,8 +296,18 @@
             document.getElementById("costoOportunidadCoef").innerHTML = cOportrunidad;
             document.getElementById("valorSlackCoef").innerHTML = slack;
           }
+          for( var i=0; i<=sol.length; i++){
+            if(sol[i] == 0){
+              control = control + 1;
+            }
+          }
           if (cantidadCero > cantidadRestriccion){
             document.getElementById("situacioN").innerHTML = "El problema tiene Multiples soluciones";
+          }else{
+            if (control > cantidadVariable){
+            document.getElementById("situacioN").innerHTML = "El problema tiene una Solución degenerada";
+            console.log(control); 
+            }
           }
         }
 
